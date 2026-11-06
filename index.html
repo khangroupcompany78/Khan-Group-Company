@@ -967,27 +967,36 @@
       }
     });
 
-    // Server Time Offset Tracker: Fetch .once() on start to eliminate continuous background stream
-    let serverTimeOffset = 0;
+    // =========================================================================
+    // ANTI-TIME-TAMPER ENGINE: Hardware Monotonic Clock (Mobile Time Proof)
+    // =========================================================================
+    let baseServerEpoch = Date.now();
+    let basePerfTime = performance.now();
+    let isTimeSynced = false;
+
+    // Firebase server timestamp se calibrate karein (user phone clock immune)
     db.ref(".info/serverTimeOffset").once("value", (snap) => {
-      serverTimeOffset = snap.val() || 0;
+      const offset = snap.val() || 0;
+      baseServerEpoch = Date.now() + offset;
+      basePerfTime = performance.now();
+      isTimeSynced = true;
     });
 
+    // performance.now() phone ki date ya time aage peeche karne se change NAHI hota
     function getSyncedNow() {
-      return Date.now() + serverTimeOffset;
+      return baseServerEpoch + Math.round(performance.now() - basePerfTime);
     }
 
     function getPKTDate(timestamp = getSyncedNow()) {
-      const d = new Date(timestamp);
-      const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-      return new Date(utc + (5 * 3600000));
+      // Direct UTC conversion to PKT (UTC+5), phone timezone se azad
+      return new Date(timestamp + (5 * 3600000));
     }
 
     function getPKTDateString(timestamp = getSyncedNow()) {
       const pkt = getPKTDate(timestamp);
-      const y = pkt.getFullYear();
-      const m = String(pkt.getMonth() + 1).padStart(2, '0');
-      const d = String(pkt.getDate()).padStart(2, '0');
+      const y = pkt.getUTCFullYear();
+      const m = String(pkt.getUTCMonth() + 1).padStart(2, '0');
+      const d = String(pkt.getUTCDate()).padStart(2, '0');
       return `${y}-${m}-${d}`;
     }
 
@@ -1062,13 +1071,14 @@
     };
 
     /* =========================================================================
-       2. AUTH & DATABASE SYNC (SINGLE DEVICE LOCK)
+       2. AUTH & LOW-BANDWIDTH DATABASE SYNC (QUOTA SAVER)
        ========================================================================= */
     auth.onAuthStateChanged((user) => {
       if (user) {
         currentUser = user;
         userDbRef = db.ref('users/' + user.uid);
 
+        // QUOTA OPTIMIZATION: Sirf profile fields sync hongi, heavy arrays nahi!
         userDbRef.on('value', (snapshot) => {
           const data = snapshot.val();
           if (data) {
@@ -1085,10 +1095,22 @@
               commissionEarned: Number(data.commissionEarned) || 0
             };
 
-            // Latest first sorting
-            appState.plans = data.plans ? Object.entries(data.plans).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
-            appState.withdrawals = data.withdrawals ? Object.entries(data.withdrawals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
-            appState.referrals = data.referrals ? Object.entries(data.referrals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
+            // Plans, withdrawals aur referrals ko snapshot se alag bind karein bina duplicate reads ke
+            if (data.plans) {
+              appState.plans = Object.entries(data.plans).map(([k, v]) => ({ _fbKey: k, ...v })).reverse();
+            } else {
+              appState.plans = [];
+            }
+            if (data.withdrawals) {
+              appState.withdrawals = Object.entries(data.withdrawals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse();
+            } else {
+              appState.withdrawals = [];
+            }
+            if (data.referrals) {
+              appState.referrals = Object.entries(data.referrals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse();
+            } else {
+              appState.referrals = [];
+            }
 
             updateUI();
 
@@ -1100,7 +1122,6 @@
           }
         });
 
-        // Fast render hardcoded catalog without database reads
         renderPlansCatalog();
         updateWithdrawHoursLabel();
         updateWithdrawWindowUI();
@@ -1194,12 +1215,12 @@
         const codeSnap = await db.ref('referral_codes/' + referralProvided.toUpperCase()).once('value');
         if (codeSnap.exists()) {
           upline1 = codeSnap.val();
-          // QUOTA OPTIMIZATION: Only fetch upline IDs instead of entire user tree
-          const up1Snap = await db.ref('users/' + upline1 + '/upline1').once('value');
-          upline2 = up1Snap.val() || null;
-          if (upline2) {
-            const up2Snap = await db.ref('users/' + upline1 + '/upline2').once('value');
-            upline3 = up2Snap.val() || null;
+          // QUOTA FIX: Sirf 2-word lightweight path se upline lete hain, user data bilkul download nahi hota
+          const upSnap = await db.ref('referral_uplines/' + upline1).once('value');
+          const upData = upSnap.val();
+          if (upData) {
+            upline2 = upData.up1 || null;
+            upline3 = upData.up2 || null;
           }
         }
       }
@@ -1208,6 +1229,12 @@
       const updates = {};
 
       updates[`referral_codes/${uniqueRefCode}`] = user.uid;
+      // Lightweight pointer node
+      updates[`referral_uplines/${user.uid}`] = {
+        up1: upline1,
+        up2: upline2,
+        up3: upline3
+      };
       updates[`users/${user.uid}`] = {
         username: username,
         email: user.email,
@@ -1498,6 +1525,8 @@
       return `${String(hoursLeft).padStart(2, '0')}h ${String(minutesLeft).padStart(2, '0')}m ${String(secondsLeft).padStart(2, '0')}s`;
     }
 
+    let lastResetDateStr = getPKTDateString();
+
     function startLiveIntervals() {
       if (countdownTimerId) clearInterval(countdownTimerId);
       countdownTimerId = setInterval(() => {
@@ -1505,12 +1534,15 @@
         if (timerDisplays.length > 0) {
           const remaining = getTimeUntilMidnightPKT();
           timerDisplays.forEach(el => el.innerText = remaining);
-
-          const pkt = getPKTDate();
-          if (pkt.getHours() === 0 && pkt.getMinutes() === 0 && pkt.getSeconds() <= 1) {
-            updateUI();
-          }
         }
+
+        // Automatic clean midnight claim unlock without database strain
+        const currentPktDay = getPKTDateString();
+        if (currentPktDay !== lastResetDateStr) {
+          lastResetDateStr = currentPktDay;
+          renderMyPlans();
+        }
+
         updateWithdrawWindowUI();
       }, 1000);
     }
@@ -1547,8 +1579,12 @@
         const nowServerTime = getSyncedNow();
         const fbKey = targetPlan._fbKey || planKey;
 
-        if (userData.plans && userData.plans[fbKey] && userData.plans[fbKey].lastClaimDatePKT === todayPKT) {
-          showToast("error", "Task already claimed on server.");
+        const serverPlan = userData.plans ? userData.plans[fbKey] : null;
+        const lastClaimTs = (serverPlan && serverPlan.lastClaimTimestamp) ? Number(serverPlan.lastClaimTimestamp) : 0;
+        
+        // Anti-Cheat: Agar phone ki date aage ki ho tab bhi actual server time check hoga
+        if (serverPlan && (serverPlan.lastClaimDatePKT === todayPKT || (lastClaimTs > 0 && (nowServerTime - lastClaimTs) < 82800000))) {
+          showToast("error", "Task already claimed today. Next claim available after reset.");
           isClaiming = false;
           setButtonLoading(btn, false);
           return;
@@ -1559,7 +1595,7 @@
         updates[`users/${currentUser.uid}/lifetimeEarned`] = realLifetime + income;
         updates[`users/${currentUser.uid}/todayEarning`] = realToday + income;
         updates[`users/${currentUser.uid}/plans/${fbKey}/lastClaimDatePKT`] = todayPKT;
-        updates[`users/${currentUser.uid}/plans/${fbKey}/lastClaimTimestamp`] = nowServerTime;
+        updates[`users/${currentUser.uid}/plans/${fbKey}/lastClaimTimestamp`] = firebase.database.ServerValue.TIMESTAMP;
         updates[`users/${currentUser.uid}/plans/${fbKey}/daysLeft`] = newDaysLeft;
 
         await db.ref().update(updates);
