@@ -145,13 +145,11 @@
     <main id="main-content" class="flex-1 overflow-y-auto pb-[90px]">
 
       <!-- ============================================== -->
-      <!-- SCREEN: AUTH - SIGN IN (Google removed)        -->
+      <!-- SCREEN: AUTH - SIGN IN                         -->
       <!-- ============================================== -->
       <section id="view-login" class="view min-h-screen flex flex-col justify-center px-6 py-10">
         <div class="flex flex-col items-center mb-7">
-          <div class="w-16 h-16 rounded-2xl bg-[#008047] flex items-center justify-center text-white shadow-lg shadow-emerald-900/15 mb-3 font-extrabold text-2xl tracking-wider">
-            KC
-          </div>
+          <img src="https://i.postimg.cc/qv2KJgqh/file-0000000003248211a503cbb30f816999.png" alt="Khan Company Logo" class="w-16 h-16 rounded-2xl object-cover shadow-lg shadow-emerald-900/15 mb-3 bg-white p-1 border border-[#dcebe2]" />
           <h1 class="text-2xl font-bold text-[#12201a]">Khan Company</h1>
           <p class="text-[12px] font-semibold text-[#008047] tracking-wider uppercase mt-0.5">Khan Group Of Company</p>
           <p class="text-[13px] text-[#5f6f68] mt-1">Sign in to your account</p>
@@ -168,10 +166,7 @@
             </div>
 
             <div>
-              <div class="flex justify-between items-center mb-1.5">
-                <label class="text-[12px] font-medium text-[#12201a]">Password</label>
-                <button type="button" onclick="handleForgotPassword()" class="text-[12px] font-medium text-[#008047] hover:underline">Forgot password?</button>
-              </div>
+              <label class="block text-[12px] font-medium text-[#12201a] mb-1.5">Password</label>
               <div class="relative">
                 <i data-lucide="lock" class="w-4 h-4 text-[#5f6f68] absolute left-3.5 top-4"></i>
                 <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl pl-10 pr-3 py-3.5 text-[14px] focus:outline-none focus:border-[#008047]" />
@@ -191,13 +186,11 @@
       </section>
 
       <!-- ============================================== -->
-      <!-- SCREEN: AUTH - REGISTER (Google removed)       -->
+      <!-- SCREEN: AUTH - REGISTER                        -->
       <!-- ============================================== -->
       <section id="view-register" class="view hidden min-h-screen flex flex-col justify-center px-6 py-8">
         <div class="flex flex-col items-center mb-5">
-          <div class="w-16 h-16 rounded-2xl bg-[#008047] flex items-center justify-center text-white shadow-lg shadow-emerald-900/15 mb-3 font-extrabold text-2xl tracking-wider">
-            KC
-          </div>
+          <img src="https://i.postimg.cc/qv2KJgqh/file-0000000003248211a503cbb30f816999.png" alt="Khan Company Logo" class="w-16 h-16 rounded-2xl object-cover shadow-lg shadow-emerald-900/15 mb-3 bg-white p-1 border border-[#dcebe2]" />
           <h1 class="text-2xl font-bold text-[#12201a]">Khan Company</h1>
           <p class="text-[12px] font-semibold text-[#008047] tracking-wider uppercase mt-0.5">Khan Group Of Company</p>
           <p class="text-[13px] text-[#5f6f68] mt-1">Register and start earning today</p>
@@ -222,10 +215,15 @@
             </div>
 
             <div>
-              <label class="block text-[12px] font-medium text-[#12201a] mb-1">Referral code <span class="text-[#5f6f68] font-normal">(optional)</span></label>
+              <div class="flex items-center justify-between mb-1">
+                <label class="text-[12px] font-medium text-[#12201a]">Referral code</label>
+                <span id="ref-locked-badge" class="hidden text-[10px] font-bold text-[#008047] bg-[#ecf8f1] px-2 py-0.5 rounded-full border border-[#c3e9d4]">
+                  <i data-lucide="lock" class="w-2.5 h-2.5 inline mr-0.5"></i> Verified Link
+                </span>
+              </div>
               <div class="relative">
                 <i data-lucide="ticket" class="w-4 h-4 text-[#5f6f68] absolute left-3.5 top-3.5"></i>
-                <input type="text" id="reg-referral" placeholder="KHAN1234" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl pl-10 pr-3 py-3 text-[13px] uppercase focus:outline-none focus:border-[#008047]" />
+                <input type="text" id="reg-referral" placeholder="KHAN1234 (optional)" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl pl-10 pr-3 py-3 text-[13px] uppercase focus:outline-none focus:border-[#008047]" />
               </div>
             </div>
 
@@ -261,7 +259,6 @@
       <!-- SCREEN: HOME / DASHBOARD                       -->
       <!-- ============================================== -->
       <section id="view-home" class="view hidden px-5 pt-6 pb-4 space-y-4">
-        <!-- Greetings & Company Badge -->
         <div class="flex items-center justify-between">
           <div>
             <span class="text-[11px] font-bold tracking-wider text-[#008047] uppercase">KHAN GROUP OF COMPANY</span>
@@ -274,7 +271,7 @@
           </button>
         </div>
 
-        <!-- Big Balance Card -->
+        <!-- Balance Card -->
         <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#008047] to-[#006437] p-6 text-white shadow-lg shadow-emerald-900/15">
           <div class="flex justify-between items-center mb-1">
             <span class="text-[11px] tracking-wider uppercase font-semibold text-emerald-100/90">TOTAL BALANCE</span>
@@ -371,40 +368,34 @@
       </section>
 
       <!-- ============================================== -->
-      <!-- SCREEN: PLANS (Dynamic Catalog)                -->
+      <!-- SCREEN: PLANS (10 Fixed Plans - 0 Quota)       -->
       <!-- ============================================== -->
       <section id="view-plans" class="view hidden px-5 pt-6 pb-4 space-y-4">
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-[#008047]">KHAN GROUP OF COMPANY</span>
           <h2 class="text-2xl font-bold text-[#12201a]">Investment Plans</h2>
           <p class="text-[12px] text-[#5f6f68] mt-1 leading-relaxed">
-            Pick a verified plan and claim your daily income every day. All plans synced live from Khan Company.
+            Pick a verified plan and claim your daily income every day. 60 days guaranteed income streams.
           </p>
         </div>
 
-        <!-- Dynamic Plans Container -->
         <div id="plans-catalog-container" class="space-y-4"></div>
 
-        <!-- How It Works Card -->
         <div class="bg-white border border-[#dcebe2] rounded-3xl p-5 shadow-sm space-y-4">
           <h3 class="text-sm font-bold text-[#12201a]">How it works</h3>
-
           <div class="space-y-3.5 text-[12px]">
             <div class="flex items-start gap-3">
               <div class="w-6 h-6 rounded-full bg-[#ecf8f1] text-[#008047] font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">1</div>
               <p class="text-[#5f6f68] leading-relaxed"><strong class="text-[#12201a]">Select a plan</strong> and send payment to our official account details.</p>
             </div>
-
             <div class="flex items-start gap-3">
               <div class="w-6 h-6 rounded-full bg-[#ecf8f1] text-[#008047] font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">2</div>
               <p class="text-[#5f6f68] leading-relaxed"><strong class="text-[#12201a]">Submit transaction ID (TID)</strong> along with your sending account number.</p>
             </div>
-
             <div class="flex items-start gap-3">
               <div class="w-6 h-6 rounded-full bg-[#ecf8f1] text-[#008047] font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">3</div>
               <p class="text-[#5f6f68] leading-relaxed"><strong class="text-[#12201a]">Admin activates plan</strong> after fast verification.</p>
             </div>
-
             <div class="flex items-start gap-3">
               <div class="w-6 h-6 rounded-full bg-[#ecf8f1] text-[#008047] font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">4</div>
               <p class="text-[#5f6f68] leading-relaxed"><strong class="text-[#12201a]">Claim daily income</strong> everyday until validity completes.</p>
@@ -427,28 +418,26 @@
           </div>
         </div>
 
-        <!-- Plan header summary -->
         <div class="rounded-3xl bg-gradient-to-br from-[#008047] to-[#006437] p-5 text-white shadow-md">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-emerald-200" id="pay-plan-badge">PLAN</div>
-          <div class="text-3xl font-extrabold mt-1 mb-3" id="pay-plan-price">Rs 0</div>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-emerald-200" id="pay-plan-badge">PLAN 01</div>
+          <div class="text-3xl font-extrabold mt-1 mb-3" id="pay-plan-price">Rs 270</div>
 
           <div class="grid grid-cols-3 gap-2 py-2.5 border-t border-white/10 text-center">
             <div>
-              <div class="text-sm font-bold" id="pay-plan-daily">Rs 0</div>
+              <div class="text-sm font-bold" id="pay-plan-daily">Rs 27</div>
               <div class="text-[10px] uppercase font-semibold text-emerald-200">DAILY</div>
             </div>
             <div class="border-x border-white/10">
-              <div class="text-sm font-bold" id="pay-plan-validity">0 days</div>
+              <div class="text-sm font-bold" id="pay-plan-validity">60 days</div>
               <div class="text-[10px] uppercase font-semibold text-emerald-200">VALIDITY</div>
             </div>
             <div>
-              <div class="text-sm font-bold" id="pay-plan-total">Rs 0</div>
+              <div class="text-sm font-bold" id="pay-plan-total">Rs 1,620</div>
               <div class="text-[10px] uppercase font-semibold text-emerald-200">TOTAL</div>
             </div>
           </div>
         </div>
 
-        <!-- Dynamic Payment Account details from Firebase -->
         <div class="bg-[#fffdf9] border border-[#f3e2bb] rounded-3xl p-5 space-y-3.5">
           <div class="flex items-center gap-2">
             <span class="bg-[#008047] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full" id="pay-account-method">Easypaisa</span>
@@ -456,7 +445,7 @@
           </div>
 
           <p class="text-[12px] text-[#8a4b0a] leading-relaxed">
-            Send the required amount to this account, then enter your transaction ID (TID) below.
+            Send the exact amount to this official account, then enter your transaction ID (TID) below.
           </p>
 
           <div class="bg-white border border-[#f3e2bb] rounded-2xl p-3.5 space-y-3">
@@ -483,7 +472,7 @@
             <div class="flex items-center justify-between pt-2 border-t border-[#f3e2bb]/40">
               <div>
                 <span class="text-[10px] uppercase tracking-wider font-semibold text-[#5f6f68] block">AMOUNT TO PAY</span>
-                <span class="text-[14px] font-bold text-[#12201a]" id="pay-account-amount">Rs 100</span>
+                <span class="text-[14px] font-bold text-[#12201a]" id="pay-account-amount">Rs 270</span>
               </div>
               <button onclick="copyText(document.getElementById('pay-account-amount').innerText.replace(/\D/g,''), 'Amount copied')" class="p-2 rounded-xl border border-[#dcebe2] hover:bg-gray-50 active:scale-95 transition">
                 <i data-lucide="copy" class="w-4 h-4 text-[#5f6f68]"></i>
@@ -497,13 +486,13 @@
           <form id="payment-form" onsubmit="submitPaymentRequest(event, this)" class="space-y-4">
             <div>
               <label class="block text-[11px] uppercase tracking-wider font-bold text-[#12201a] mb-1.5">TRANSACTION ID (TID)</label>
-              <input type="text" id="pay-tid" required placeholder="e.g. 1029384756" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl px-3.5 py-3 text-[13px] focus:outline-none focus:border-[#008047]" />
+              <input type="text" id="pay-tid" required placeholder="e.g. 1029384756" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl px-3.5 py-3 text-[13px] uppercase focus:outline-none focus:border-[#008047]" />
             </div>
 
             <div>
               <label class="block text-[11px] uppercase tracking-wider font-bold text-[#12201a] mb-1.5">YOUR SENDER ACCOUNT NUMBER</label>
               <input type="tel" inputmode="numeric" id="pay-sender-account" required placeholder="03001234567" maxlength="11" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 11)" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl px-3.5 py-3 text-[13px] focus:outline-none focus:border-[#008047]" />
-              <p class="text-[11px] text-[#5f6f68] mt-1.5">11 digit account number you paid from.</p>
+              <p class="text-[11px] text-[#5f6f68] mt-1.5">11 digit mobile number you paid from.</p>
             </div>
 
             <button type="submit" id="btn-submit-payment" class="w-full bg-[#008047] hover:bg-[#006437] text-white py-3.5 rounded-xl text-[14px] font-semibold active:scale-[0.99] transition flex items-center justify-center gap-2 mt-2">
@@ -514,7 +503,7 @@
       </section>
 
       <!-- ============================================== -->
-      <!-- SCREEN: MY PLANS (Fixed Claim & Timer)         -->
+      <!-- SCREEN: MY PLANS                               -->
       <!-- ============================================== -->
       <section id="view-myplans" class="view hidden px-5 pt-6 pb-4 space-y-4">
         <div class="flex items-center justify-between">
@@ -535,7 +524,6 @@
             <h3 class="text-sm font-bold text-[#12201a]">Active Income Streams</h3>
             <span class="text-[11px] text-[#5f6f68]">Resets daily at 12:00 AM</span>
           </div>
-
           <div id="active-plans-container" class="space-y-3"></div>
         </div>
       </section>
@@ -555,7 +543,7 @@
           </button>
         </div>
 
-        <!-- Available Balance Banner & Working Hours Status -->
+        <!-- Available Balance Banner -->
         <div class="rounded-3xl bg-gradient-to-br from-[#008047] to-[#006437] p-6 text-white shadow-lg shadow-emerald-900/15">
           <span class="text-[11px] tracking-wider uppercase font-semibold text-emerald-100/90">AVAILABLE BALANCE</span>
           <div class="text-4xl font-extrabold tracking-tight mt-1 mb-4">
@@ -563,7 +551,6 @@
           </div>
 
           <div class="flex items-center gap-2 flex-wrap mb-3">
-            <!-- Dynamic Open/Closed Status Badge -->
             <span id="withdraw-time-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#f5c35a] text-[#12201a]">
               <span class="w-2 h-2 rounded-full bg-[#12201a] animate-pulse"></span> Open now
             </span>
@@ -576,12 +563,12 @@
           </div>
 
           <div class="pt-3 border-t border-white/10 text-[12px] text-emerald-100 flex justify-between">
-            <span>Khan Company Guarantee</span>
+            <span>Active Plan Required</span>
             <span>Lifetime: Rs <span id="withdraw-lifetime">0</span></span>
           </div>
         </div>
 
-        <!-- Methods list with real logos -->
+        <!-- Payout methods list -->
         <div>
           <div class="flex items-center justify-between mb-2.5">
             <h3 class="text-sm font-bold text-[#12201a]">Payout Methods</h3>
@@ -589,7 +576,6 @@
           </div>
 
           <div class="space-y-2.5" id="payout-methods-list">
-            <!-- Easypaisa -->
             <button onclick="handleMethodClick('Easypaisa')" class="method-btn w-full bg-white border border-[#dcebe2] rounded-2xl p-3.5 flex items-center justify-between shadow-sm hover:border-[#008047] active:scale-[0.99] transition">
               <div class="flex items-center gap-3">
                 <img src="https://i.postimg.cc/R0DVWxTL/Screenshot-20261027-005853-1.jpg" alt="Easypaisa" class="w-11 h-11 rounded-xl object-contain border border-gray-100 p-0.5 bg-white" />
@@ -601,7 +587,6 @@
               <i data-lucide="chevron-right" class="w-4 h-4 text-[#5f6f68]"></i>
             </button>
 
-            <!-- JazzCash -->
             <button onclick="handleMethodClick('JazzCash')" class="method-btn w-full bg-white border border-[#dcebe2] rounded-2xl p-3.5 flex items-center justify-between shadow-sm hover:border-[#008047] active:scale-[0.99] transition">
               <div class="flex items-center gap-3">
                 <img src="https://i.postimg.cc/9frc5NjS/Screenshot-20261027-005908-2.jpg" alt="JazzCash" class="w-11 h-11 rounded-xl object-contain border border-gray-100 p-0.5 bg-white" />
@@ -613,7 +598,6 @@
               <i data-lucide="chevron-right" class="w-4 h-4 text-[#5f6f68]"></i>
             </button>
 
-            <!-- NayaPay -->
             <button onclick="handleMethodClick('NayaPay')" class="method-btn w-full bg-white border border-[#dcebe2] rounded-2xl p-3.5 flex items-center justify-between shadow-sm hover:border-[#008047] active:scale-[0.99] transition">
               <div class="flex items-center gap-3">
                 <img src="https://i.postimg.cc/RhQBQkc5/Screenshot-20261027-010525-2.jpg" alt="NayaPay" class="w-11 h-11 rounded-xl object-contain border border-gray-100 p-0.5 bg-white" />
@@ -625,7 +609,6 @@
               <i data-lucide="chevron-right" class="w-4 h-4 text-[#5f6f68]"></i>
             </button>
 
-            <!-- SadaPay -->
             <button onclick="handleMethodClick('SadaPay')" class="method-btn w-full bg-white border border-[#dcebe2] rounded-2xl p-3.5 flex items-center justify-between shadow-sm hover:border-[#008047] active:scale-[0.99] transition">
               <div class="flex items-center gap-3">
                 <img src="https://i.postimg.cc/RV49V0BC/IMG-17b4bbf7-4e1a-4966-950b-85bd9ee676fb.png" alt="SadaPay" class="w-11 h-11 rounded-xl object-contain border border-gray-100 p-0.5 bg-white" />
@@ -637,7 +620,6 @@
               <i data-lucide="chevron-right" class="w-4 h-4 text-[#5f6f68]"></i>
             </button>
 
-            <!-- UPaisa -->
             <button onclick="handleMethodClick('UPaisa')" class="method-btn w-full bg-white border border-[#dcebe2] rounded-2xl p-3.5 flex items-center justify-between shadow-sm hover:border-[#008047] active:scale-[0.99] transition">
               <div class="flex items-center gap-3">
                 <img src="https://i.postimg.cc/x8PwbK2D/Screenshot-20261027-010856-2.jpg" alt="UPaisa" class="w-11 h-11 rounded-xl object-contain border border-gray-100 p-0.5 bg-white" />
@@ -675,7 +657,6 @@
         </div>
 
         <form id="withdraw-request-form" onsubmit="handleWithdrawSubmit(event, this)" class="space-y-4">
-          <!-- Amount -->
           <div class="bg-white border border-[#dcebe2] rounded-3xl p-5 space-y-3">
             <span class="block text-[11px] uppercase font-bold tracking-wider text-[#5f6f68]">AMOUNT (PKR)</span>
             <div class="flex items-baseline gap-2 border-b border-[#dcebe2] pb-2">
@@ -694,11 +675,9 @@
               </div>
               <span class="text-[12px] text-[#5f6f68]">Balance: Rs <span id="form-balance-preview">0</span></span>
             </div>
-
             <p class="text-[11px] text-[#5f6f68]">Minimum withdrawal amount is <strong class="text-[#12201a]">Rs 20</strong>.</p>
           </div>
 
-          <!-- Account Details -->
           <div class="bg-white border border-[#dcebe2] rounded-3xl p-5 space-y-3.5">
             <div>
               <label class="block text-[11px] uppercase font-bold tracking-wider text-[#5f6f68] mb-1.5">ACCOUNT HOLDER NAME (Letters only)</label>
@@ -720,7 +699,7 @@
       </section>
 
       <!-- ============================================== -->
-      <!-- SCREEN: WITHDRAW HISTORY                       -->
+      <!-- SCREEN: WITHDRAW HISTORY (With See More)       -->
       <!-- ============================================== -->
       <section id="view-withdraw-history" class="view hidden px-5 pt-6 pb-4 space-y-4">
         <div class="flex items-center gap-3">
@@ -732,12 +711,12 @@
             <p class="text-[11px] text-[#5f6f68]">Real-time status of payout requests.</p>
           </div>
         </div>
-
         <div id="withdraw-history-list" class="space-y-3"></div>
+        <div id="withdraw-history-pagination" class="pt-1"></div>
       </section>
 
       <!-- ============================================== -->
-      <!-- SCREEN: DEPOSIT HISTORY (Plans Requests only)  -->
+      <!-- SCREEN: DEPOSIT HISTORY (With See More)        -->
       <!-- ============================================== -->
       <section id="view-deposit-history" class="view hidden px-5 pt-6 pb-4 space-y-4">
         <div class="flex items-center gap-3">
@@ -749,12 +728,12 @@
             <p class="text-[11px] text-[#5f6f68]">Plan purchase requests & approvals only.</p>
           </div>
         </div>
-
         <div id="deposit-history-list" class="space-y-3"></div>
+        <div id="deposit-history-pagination" class="pt-1"></div>
       </section>
 
       <!-- ============================================== -->
-      <!-- SCREEN: REFERRAL (Interactive Levels 1, 2, 3) -->
+      <!-- SCREEN: REFERRAL                               -->
       <!-- ============================================== -->
       <section id="view-referral" class="view hidden px-5 pt-6 pb-4 space-y-4">
         <div>
@@ -798,31 +777,27 @@
               <i data-lucide="share-2" class="w-3.5 h-3.5"></i> Share
             </button>
           </div>
-
           <p class="text-[11px] text-[#5f6f68] leading-relaxed">
-            Every user gets a guaranteed unique referral code. Commission adds directly to wallet upon plan activation.
+            Commission adds directly to wallet upon plan activation.
           </p>
         </div>
 
-        <!-- Interactive 3 Tiers Selector -->
+        <!-- 3 Tiers Selector -->
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-[#5f6f68] block mb-2 px-1">SELECT LEVEL TO VIEW</span>
           <div class="grid grid-cols-3 gap-2">
-            <!-- Level 1 Tab -->
             <button type="button" onclick="selectReferralLevel(1)" id="ref-level-btn-1" class="ref-level-btn active-level bg-white border border-[#dcebe2] rounded-2xl p-3 text-center shadow-xs transition active:scale-95">
               <span class="text-[10px] uppercase font-bold block">LEVEL 1</span>
               <div class="text-xl font-extrabold my-0.5">8%</div>
               <span class="text-[10px] level-subtext text-emerald-200"><span id="ref-lvl1-count">0</span> Active</span>
             </button>
 
-            <!-- Level 2 Tab -->
             <button type="button" onclick="selectReferralLevel(2)" id="ref-level-btn-2" class="ref-level-btn bg-white border border-[#dcebe2] rounded-2xl p-3 text-center shadow-xs transition active:scale-95 text-[#12201a]">
               <span class="text-[10px] uppercase font-bold text-[#5f6f68] block">LEVEL 2</span>
               <div class="text-xl font-extrabold my-0.5">3%</div>
               <span class="text-[10px] level-subtext text-[#5f6f68]"><span id="ref-lvl2-count">0</span> Active</span>
             </button>
 
-            <!-- Level 3 Tab -->
             <button type="button" onclick="selectReferralLevel(3)" id="ref-level-btn-3" class="ref-level-btn bg-white border border-[#dcebe2] rounded-2xl p-3 text-center shadow-xs transition active:scale-95 text-[#12201a]">
               <span class="text-[10px] uppercase font-bold text-[#5f6f68] block">LEVEL 3</span>
               <div class="text-xl font-extrabold my-0.5">1%</div>
@@ -831,7 +806,6 @@
           </div>
         </div>
 
-        <!-- Level Specific Details & Members List -->
         <div class="bg-white border border-[#dcebe2] rounded-3xl p-5 shadow-sm space-y-3">
           <div class="flex items-center justify-between pb-2 border-b border-[#dcebe2]/50">
             <div>
@@ -842,20 +816,16 @@
               8% Commission
             </span>
           </div>
-
           <div id="referrals-list" class="space-y-2"></div>
         </div>
       </section>
 
       <!-- ============================================== -->
-      <!-- SCREEN: PROFILE (Security card deleted)        -->
+      <!-- SCREEN: PROFILE                                -->
       <!-- ============================================== -->
       <section id="view-profile" class="view hidden px-5 pt-6 pb-4 space-y-4">
-        <!-- User Badge -->
         <div class="rounded-3xl bg-gradient-to-br from-[#008047] to-[#006437] p-5 text-white shadow-lg shadow-emerald-900/15 flex items-center gap-4">
-          <div class="w-14 h-14 rounded-2xl bg-white/20 border border-white/20 flex items-center justify-center text-white font-extrabold text-2xl" id="profile-avatar-letter">
-            K
-          </div>
+          <img src="https://i.postimg.cc/qv2KJgqh/file-0000000003248211a503cbb30f816999.png" alt="Profile" class="w-14 h-14 rounded-2xl bg-white p-0.5 border border-white/20 object-cover" />
           <div>
             <h2 class="text-lg font-bold" id="profile-username">User</h2>
             <div class="flex items-center gap-1.5 text-emerald-100 text-[12px] mt-0.5">
@@ -903,7 +873,6 @@
           </button>
         </div>
 
-        <!-- Sign Out (Account Security Card Completely Removed) -->
         <button onclick="handleSignOut(this)" class="w-full bg-[#fdf0f0] border border-[#f4cccc] rounded-2xl p-4 flex items-center justify-between text-left active:scale-[0.99] transition">
           <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-xl bg-red-100 text-[#b3261e] flex items-center justify-center">
@@ -920,11 +889,8 @@
 
     </main>
 
-    <!-- ============================================== -->
-    <!-- MOBILE BOTTOM NAVIGATION                       -->
-    <!-- ============================================== -->
+    <!-- BOTTOM NAVIGATION -->
     <nav id="bottom-nav" class="hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[440px] h-[74px] bg-white border-t border-[#dcebe2] flex items-center justify-around px-2 z-50">
-      <!-- Home -->
       <button onclick="navigateTo('home')" id="tab-home" class="nav-tab flex flex-col items-center justify-center flex-1 h-full py-1 text-[#5f6f68] transition">
         <div class="tab-icon-box w-11 h-9 rounded-xl flex items-center justify-center transition-all duration-200">
           <i data-lucide="home" class="w-5 h-5"></i>
@@ -932,7 +898,6 @@
         <span class="text-[10px] font-semibold mt-0.5 tab-text">Home</span>
       </button>
 
-      <!-- Plans -->
       <button onclick="navigateTo('plans')" id="tab-plans" class="nav-tab flex flex-col items-center justify-center flex-1 h-full py-1 text-[#5f6f68] transition">
         <div class="tab-icon-box w-11 h-9 rounded-xl flex items-center justify-center transition-all duration-200">
           <i data-lucide="trending-up" class="w-5 h-5"></i>
@@ -940,7 +905,6 @@
         <span class="text-[10px] font-semibold mt-0.5 tab-text">Plans</span>
       </button>
 
-      <!-- My Plans -->
       <button onclick="navigateTo('myplans')" id="tab-myplans" class="nav-tab flex flex-col items-center justify-center flex-1 h-full py-1 text-[#5f6f68] transition">
         <div class="tab-icon-box w-11 h-9 rounded-xl flex items-center justify-center transition-all duration-200">
           <i data-lucide="gift" class="w-5 h-5"></i>
@@ -948,7 +912,6 @@
         <span class="text-[10px] font-semibold mt-0.5 tab-text">My Plans</span>
       </button>
 
-      <!-- Withdraw -->
       <button onclick="navigateTo('withdraw')" id="tab-withdraw" class="nav-tab flex flex-col items-center justify-center flex-1 h-full py-1 text-[#5f6f68] transition">
         <div class="tab-icon-box w-11 h-9 rounded-xl flex items-center justify-center transition-all duration-200">
           <i data-lucide="wallet" class="w-5 h-5"></i>
@@ -956,7 +919,6 @@
         <span class="text-[10px] font-semibold mt-0.5 tab-text">Withdraw</span>
       </button>
 
-      <!-- Referral -->
       <button onclick="navigateTo('referral')" id="tab-referral" class="nav-tab flex flex-col items-center justify-center flex-1 h-full py-1 text-[#5f6f68] transition">
         <div class="tab-icon-box w-11 h-9 rounded-xl flex items-center justify-center transition-all duration-200">
           <i data-lucide="users" class="w-5 h-5"></i>
@@ -964,7 +926,6 @@
         <span class="text-[10px] font-semibold mt-0.5 tab-text">Referral</span>
       </button>
 
-      <!-- Profile -->
       <button onclick="navigateTo('profile')" id="tab-profile" class="nav-tab flex flex-col items-center justify-center flex-1 h-full py-1 text-[#5f6f68] transition">
         <div class="tab-icon-box w-11 h-9 rounded-xl flex items-center justify-center transition-all duration-200">
           <i data-lucide="user" class="w-5 h-5"></i>
@@ -977,7 +938,7 @@
 
   <script>
     /* =========================================================================
-       KHAN COMPANY (KHAN GROUP OF COMPANY) - APPLICATION ENGINE
+       KHAN COMPANY - 10 FIXED PLANS & OPTIMIZED PAGINATION ENGINE
        ========================================================================= */
 
     // 1. FIREBASE CONFIGURATION
@@ -998,9 +959,18 @@
     const auth = firebase.auth();
     const db = firebase.database();
 
-    // Server Time Offset Tracker for Anti-Clock-Tampering
+    // OPTIMIZATION: Disconnect on Page Inactive (Saves 100 simultaneous connection slots)
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        db.goOffline();
+      } else {
+        db.goOnline();
+      }
+    });
+
+    // Server Time Offset Tracker: Fetch .once() on start to eliminate continuous background stream
     let serverTimeOffset = 0;
-    db.ref(".info/serverTimeOffset").on("value", (snap) => {
+    db.ref(".info/serverTimeOffset").once("value", (snap) => {
       serverTimeOffset = snap.val() || 0;
     });
 
@@ -1008,7 +978,6 @@
       return Date.now() + serverTimeOffset;
     }
 
-    // Convert Server Timestamp to Pakistan Time (PKT: UTC+5)
     function getPKTDate(timestamp = getSyncedNow()) {
       const d = new Date(timestamp);
       const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
@@ -1023,11 +992,56 @@
       return `${y}-${m}-${d}`;
     }
 
+    // =========================================================================
+    // 10 FIXED INVESTMENT PLANS (HARDCODED IN JS - 0 FIREBASE READS USED)
+    // =========================================================================
+    const FIXED_PLANS = [
+      { id: "plan_270",    name: "Plan 01", price: 270,    dailyIncome: 27,    validityDays: 60, totalReturn: 1620 },
+      { id: "plan_500",    name: "Plan 02", price: 500,    dailyIncome: 50,    validityDays: 60, totalReturn: 3000 },
+      { id: "plan_1500",   name: "Plan 03", price: 1500,   dailyIncome: 150,   validityDays: 60, totalReturn: 9000 },
+      { id: "plan_4000",   name: "Plan 04", price: 4000,   dailyIncome: 400,   validityDays: 60, totalReturn: 24000 },
+      { id: "plan_9000",   name: "Plan 05", price: 9000,   dailyIncome: 900,   validityDays: 60, totalReturn: 54000 },
+      { id: "plan_20000",  name: "Plan 06", price: 20000,  dailyIncome: 2000,  validityDays: 60, totalReturn: 120000 },
+      { id: "plan_45000",  name: "Plan 07", price: 45000,  dailyIncome: 4500,  validityDays: 60, totalReturn: 270000 },
+      { id: "plan_100000", name: "Plan 08", price: 100000, dailyIncome: 10000, validityDays: 60, totalReturn: 600000 },
+      { id: "plan_200000", name: "Plan 09", price: 200000, dailyIncome: 20000, validityDays: 60, totalReturn: 1200000 },
+      { id: "plan_500000", name: "Plan 10", price: 500000, dailyIncome: 50000, validityDays: 60, totalReturn: 3000000 }
+    ];
+
+    let dynamicPaymentAccount = {
+      method: "Easypaisa",
+      title: "Taufeeq Ahmed",
+      number: "03262550724"
+    };
+
+    let dynamicWithdrawTiming = {
+      openHour: 9,
+      closeHour: 22
+    };
+
+    const METHOD_LOGOS = {
+      Easypaisa: "https://i.postimg.cc/R0DVWxTL/Screenshot-20261027-005853-1.jpg",
+      JazzCash: "https://i.postimg.cc/9frc5NjS/Screenshot-20261027-005908-2.jpg",
+      NayaPay: "https://i.postimg.cc/RhQBQkc5/Screenshot-20261027-010525-2.jpg",
+      SadaPay: "https://i.postimg.cc/RV49V0BC/IMG-17b4bbf7-4e1a-4966-950b-85bd9ee676fb.png",
+      UPaisa: "https://i.postimg.cc/x8PwbK2D/Screenshot-20261027-010856-2.jpg"
+    };
+
     // App State
     let currentUser = null;
+    let userDbRef = null;
     let currentView = 'login';
     let countdownTimerId = null;
     let selectedReferralLevel = 1;
+
+    // Concurrency / Multi-Tap Locks (Anti-Spam)
+    let isClaiming = false;
+    let isSubmittingDeposit = false;
+    let isSubmittingWithdraw = false;
+
+    // PAGINATION LIMITS (Initial 8 items, then +8 each click)
+    let depositVisibleCount = 8;
+    let withdrawVisibleCount = 8;
 
     let appState = {
       user: {
@@ -1040,44 +1054,38 @@
         lifetimeEarned: 0,
         todayEarning: 0,
         networkSize: 0,
-        commissionEarned: 0
+        commissionEarned: 0,
+        activeSessionId: null
       },
       plans: [],
       withdrawals: [],
       referrals: []
     };
 
-    // Dynamic Settings
-    let dynamicPlans = [];
-    let dynamicPaymentAccount = {
-      method: "Easypaisa",
-      title: "Taufeeq Ahmed",
-      number: "03262550724"
-    };
-
-    // Dynamic Withdraw Timing (Loaded from Firebase)
-    let dynamicWithdrawTiming = {
-      openHour: 9,    // 09:00 AM
-      closeHour: 22   // 10:00 PM
-    };
-
-    const METHOD_LOGOS = {
-      Easypaisa: "https://i.postimg.cc/R0DVWxTL/Screenshot-20261027-005853-1.jpg",
-      JazzCash: "https://i.postimg.cc/9frc5NjS/Screenshot-20261027-005908-2.jpg",
-      NayaPay: "https://i.postimg.cc/RhQBQkc5/Screenshot-20261027-010525-2.jpg",
-      SadaPay: "https://i.postimg.cc/RV49V0BC/IMG-17b4bbf7-4e1a-4966-950b-85bd9ee676fb.png",
-      UPaisa: "https://i.postimg.cc/x8PwbK2D/Screenshot-20261027-010856-2.jpg"
-    };
-
     /* =========================================================================
-       2. AUTH & DATABASE SYNC
+       2. AUTH & DATABASE SYNC (SINGLE DEVICE LOCK)
        ========================================================================= */
     auth.onAuthStateChanged((user) => {
       if (user) {
         currentUser = user;
-        db.ref('users/' + user.uid).on('value', (snapshot) => {
+        userDbRef = db.ref('users/' + user.uid);
+
+        let currentLocalSession = localStorage.getItem('kc_session_id');
+        if (!currentLocalSession) {
+          currentLocalSession = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+          localStorage.setItem('kc_session_id', currentLocalSession);
+          userDbRef.child('activeSessionId').set(currentLocalSession);
+        }
+
+        userDbRef.on('value', (snapshot) => {
           const data = snapshot.val();
           if (data) {
+            // SECURITY: Single Device Active Session Enforcer
+            if (data.activeSessionId && currentLocalSession && data.activeSessionId !== currentLocalSession) {
+              handleSignOut(null, "Your account was logged in on another device.");
+              return;
+            }
+
             appState.user = {
               uid: user.uid,
               username: data.username || user.email.split('@')[0],
@@ -1088,38 +1096,14 @@
               lifetimeEarned: Number(data.lifetimeEarned) || 0,
               todayEarning: Number(data.todayEarning) || 0,
               networkSize: Number(data.networkSize) || 0,
-              commissionEarned: Number(data.commissionEarned) || 0
+              commissionEarned: Number(data.commissionEarned) || 0,
+              activeSessionId: data.activeSessionId || null
             };
 
-            // Map plans preserving Firebase DB push keys
-            if (data.plans) {
-              appState.plans = Object.entries(data.plans).map(([key, val]) => ({
-                _fbKey: key,
-                ...val
-              }));
-            } else {
-              appState.plans = [];
-            }
-
-            // Map withdrawals preserving keys
-            if (data.withdrawals) {
-              appState.withdrawals = Object.entries(data.withdrawals).map(([key, val]) => ({
-                _fbKey: key,
-                ...val
-              }));
-            } else {
-              appState.withdrawals = [];
-            }
-
-            // Map referrals preserving keys
-            if (data.referrals) {
-              appState.referrals = Object.entries(data.referrals).map(([key, val]) => ({
-                _fbKey: key,
-                ...val
-              }));
-            } else {
-              appState.referrals = [];
-            }
+            // Latest first sorting
+            appState.plans = data.plans ? Object.entries(data.plans).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
+            appState.withdrawals = data.withdrawals ? Object.entries(data.withdrawals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
+            appState.referrals = data.referrals ? Object.entries(data.referrals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
 
             updateUI();
 
@@ -1131,82 +1115,40 @@
           }
         });
 
-        listenToDynamicSettings();
+        // Fast render hardcoded catalog without database reads
+        renderPlansCatalog();
+        updateWithdrawHoursLabel();
+        updateWithdrawWindowUI();
+        updatePaymentAccountUI();
         startLiveIntervals();
       } else {
+        if (userDbRef) {
+          userDbRef.off();
+          userDbRef = null;
+        }
         currentUser = null;
         resetState();
-        navigateTo('login');
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('ref')) {
+          navigateTo('register');
+        } else {
+          navigateTo('login');
+        }
       }
     });
 
     function resetState() {
       appState = {
-        user: { uid: null, username: "", email: "", referralCode: "", referredBy: null, balance: 0, lifetimeEarned: 0, todayEarning: 0, networkSize: 0, commissionEarned: 0 },
+        user: { uid: null, username: "", email: "", referralCode: "", referredBy: null, balance: 0, lifetimeEarned: 0, todayEarning: 0, networkSize: 0, commissionEarned: 0, activeSessionId: null },
         plans: [],
         withdrawals: [],
         referrals: []
       };
+      depositVisibleCount = 8;
+      withdrawVisibleCount = 8;
       if (countdownTimerId) clearInterval(countdownTimerId);
       updateUI();
-    }
-
-    // Dynamic Firebase Settings (Plans, Payment, Withdraw Timing)
-    function listenToDynamicSettings() {
-      // 1. Investment Plans from Firebase
-      db.ref('settings/plans').on('value', (snap) => {
-        const val = snap.val();
-        if (val) {
-          dynamicPlans = Array.isArray(val) ? val : Object.values(val);
-        } else {
-          dynamicPlans = [
-            {
-              id: "plan_100",
-              name: "Plan 01",
-              price: 100,
-              dailyIncome: 10,
-              validityDays: 90,
-              totalReturn: 900,
-              discountPercent: 0,
-              discountExpiry: 0
-            }
-          ];
-          db.ref('settings/plans/plan_100').set(dynamicPlans[0]);
-        }
-        renderPlansCatalog();
-      });
-
-      // 2. Deposit Account info from Firebase
-      db.ref('settings/payment_accounts/primary').on('value', (snap) => {
-        const acc = snap.val();
-        if (acc) {
-          dynamicPaymentAccount = acc;
-        } else {
-          dynamicPaymentAccount = {
-            method: "Easypaisa",
-            title: "Taufeeq Ahmed",
-            number: "03262550724"
-          };
-          db.ref('settings/payment_accounts/primary').set(dynamicPaymentAccount);
-        }
-        updatePaymentAccountUI();
-      });
-
-      // 3. Dynamic Withdraw Timing from Firebase
-      db.ref('settings/withdraw_timing').on('value', (snap) => {
-        const timing = snap.val();
-        if (timing) {
-          dynamicWithdrawTiming = {
-            openHour: Number(timing.openHour) || 9,
-            closeHour: Number(timing.closeHour) || 22
-          };
-        } else {
-          dynamicWithdrawTiming = { openHour: 9, closeHour: 22 };
-          db.ref('settings/withdraw_timing').set(dynamicWithdrawTiming);
-        }
-        updateWithdrawHoursLabel();
-        updateWithdrawWindowUI();
-      });
     }
 
     function formatHourLabel(h) {
@@ -1230,19 +1172,18 @@
       const titleEl = document.getElementById("pay-account-title");
       const numberEl = document.getElementById("pay-account-number");
 
-      if (methodEl) methodEl.innerText = dynamicPaymentAccount.method || "Easypaisa";
-      if (titleEl) titleEl.innerText = dynamicPaymentAccount.title || "Taufeeq Ahmed";
-      if (numberEl) numberEl.innerText = dynamicPaymentAccount.number || "03262550724";
+      if (methodEl) methodEl.innerText = dynamicPaymentAccount.method;
+      if (titleEl) titleEl.innerText = dynamicPaymentAccount.title;
+      if (numberEl) numberEl.innerText = dynamicPaymentAccount.number;
     }
 
     /* =========================================================================
-       3. UNIQUE REFERRAL CODE & 3 TIERS REGISTRATION
+       3. UNIQUE REFERRAL CODE & SHALLOW UPLINE FETCH (QUOTA SAVER)
        ========================================================================= */
     async function generateUniqueReferralCode() {
       const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
       let uniqueCode = "";
       let isUnique = false;
-
       while (!isUnique) {
         let randomPart = "";
         for (let i = 0; i < 4; i++) {
@@ -1261,24 +1202,30 @@
     async function createNewUserRecord(user, customUsername = null, referralProvided = null) {
       const username = customUsername || user.displayName || user.email.split('@')[0];
       const uniqueRefCode = await generateUniqueReferralCode();
+      const newSessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+      localStorage.setItem('kc_session_id', newSessionId);
 
-      let upline1 = null;
-      let upline2 = null;
-      let upline3 = null;
+      let upline1 = null, upline2 = null, upline3 = null;
 
       if (referralProvided) {
         const codeSnap = await db.ref('referral_codes/' + referralProvided.toUpperCase()).once('value');
         if (codeSnap.exists()) {
           upline1 = codeSnap.val();
-          const up1Data = (await db.ref('users/' + upline1).once('value')).val();
-          if (up1Data) {
-            upline2 = up1Data.upline1 || null;
-            upline3 = up1Data.upline2 || null;
+          // QUOTA OPTIMIZATION: Only fetch upline IDs instead of entire user tree
+          const up1Snap = await db.ref('users/' + upline1 + '/upline1').once('value');
+          upline2 = up1Snap.val() || null;
+          if (upline2) {
+            const up2Snap = await db.ref('users/' + upline1 + '/upline2').once('value');
+            upline3 = up2Snap.val() || null;
           }
         }
       }
 
-      const newUserData = {
+      const joinDateStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      const updates = {};
+
+      updates[`referral_codes/${uniqueRefCode}`] = user.uid;
+      updates[`users/${user.uid}`] = {
         username: username,
         email: user.email,
         referralCode: uniqueRefCode,
@@ -1291,49 +1238,27 @@
         todayEarning: 0,
         networkSize: 0,
         commissionEarned: 0,
+        activeSessionId: newSessionId,
         createdAt: firebase.database.ServerValue.TIMESTAMP
       };
 
-      await db.ref('referral_codes/' + uniqueRefCode).set(user.uid);
-      await db.ref('users/' + user.uid).set(newUserData);
-
-      const joinDateStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-
-      // Link under Level 1 upline
       if (upline1) {
-        await db.ref(`users/${upline1}/referrals/${user.uid}`).set({
-          uid: user.uid,
-          username: username,
-          joinedDate: joinDateStr,
-          level: 1,
-          earned: 0,
-          activePlansCount: 0
-        });
+        updates[`users/${upline1}/referrals/${user.uid}`] = {
+          uid: user.uid, username: username, joinedDate: joinDateStr, level: 1, earned: 0, activePlansCount: 0
+        };
       }
-
-      // Link under Level 2 upline
       if (upline2) {
-        await db.ref(`users/${upline2}/referrals/${user.uid}`).set({
-          uid: user.uid,
-          username: username,
-          joinedDate: joinDateStr,
-          level: 2,
-          earned: 0,
-          activePlansCount: 0
-        });
+        updates[`users/${upline2}/referrals/${user.uid}`] = {
+          uid: user.uid, username: username, joinedDate: joinDateStr, level: 2, earned: 0, activePlansCount: 0
+        };
+      }
+      if (upline3) {
+        updates[`users/${upline3}/referrals/${user.uid}`] = {
+          uid: user.uid, username: username, joinedDate: joinDateStr, level: 3, earned: 0, activePlansCount: 0
+        };
       }
 
-      // Link under Level 3 upline
-      if (upline3) {
-        await db.ref(`users/${upline3}/referrals/${user.uid}`).set({
-          uid: user.uid,
-          username: username,
-          joinedDate: joinDateStr,
-          level: 3,
-          earned: 0,
-          activePlansCount: 0
-        });
-      }
+      await db.ref().update(updates);
     }
 
     /* =========================================================================
@@ -1341,7 +1266,6 @@
        ========================================================================= */
     function navigateTo(viewId) {
       currentView = viewId;
-
       document.querySelectorAll(".view").forEach(v => v.classList.add("hidden"));
 
       const targetView = document.getElementById("view-" + viewId);
@@ -1370,12 +1294,16 @@
     }
 
     /* =========================================================================
-       5. DYNAMIC WITHDRAW HOURS CHECK
+       5. WITHDRAW WINDOW & PLAN ELIGIBILITY CHECK
        ========================================================================= */
     function isWithdrawOpen() {
       const pkt = getPKTDate();
       const hours = pkt.getHours();
       return hours >= dynamicWithdrawTiming.openHour && hours < dynamicWithdrawTiming.closeHour;
+    }
+
+    function hasActivePlan() {
+      return appState.plans.some(p => p.status === 'active');
     }
 
     function updateWithdrawWindowUI() {
@@ -1409,51 +1337,54 @@
 
     function handleMethodClick(methodName) {
       if (!isWithdrawOpen()) {
-        showToast("error", `Withdrawals are closed right now. Active hours: ${formatHourLabel(dynamicWithdrawTiming.openHour)} to ${formatHourLabel(dynamicWithdrawTiming.closeHour)}.`);
+        showToast("error", `Withdrawals are closed. Active hours: ${formatHourLabel(dynamicWithdrawTiming.openHour)} to ${formatHourLabel(dynamicWithdrawTiming.closeHour)}.`);
         return;
       }
+
+      if (!hasActivePlan()) {
+        showToast("error", "Withdrawal restricted! You must have at least 1 active investment plan to withdraw.");
+        return;
+      }
+
       openWithdrawForm(methodName);
     }
 
     /* =========================================================================
-       6. UI RENDER ENGINE
+       6. UI STATE UPDATE
        ========================================================================= */
     function updateUI() {
       const u = appState.user;
 
       const dashUser = document.getElementById("dash-username");
       if (dashUser) dashUser.innerText = u.username || "User";
-      document.getElementById("dash-balance").innerText = u.balance;
-      document.getElementById("dash-today-earning").innerText = u.todayEarning || 0;
-      document.getElementById("dash-stat-today").innerText = u.todayEarning || 0;
-      document.getElementById("dash-stat-lifetime").innerText = u.lifetimeEarned || 0;
+      document.getElementById("dash-balance").innerText = u.balance.toLocaleString('en-US');
+      document.getElementById("dash-today-earning").innerText = (u.todayEarning || 0).toLocaleString('en-US');
+      document.getElementById("dash-stat-today").innerText = (u.todayEarning || 0).toLocaleString('en-US');
+      document.getElementById("dash-stat-lifetime").innerText = (u.lifetimeEarned || 0).toLocaleString('en-US');
       document.getElementById("dash-ref-code").innerText = u.referralCode || "KHAN0000";
       document.getElementById("dash-ref-input").value = window.location.origin + "/?ref=" + (u.referralCode || "");
 
       const activePlans = appState.plans.filter(p => p.status === 'active');
       document.getElementById("dash-stat-active-plans").innerText = activePlans.length;
 
-      // Active Referrals (all levels)
       const allActiveReferrals = appState.referrals.filter(r => (Number(r.activePlansCount) || 0) > 0);
       document.getElementById("dash-stat-referrals").innerText = allActiveReferrals.length;
 
       // Profile Screen
       document.getElementById("profile-username").innerText = u.username || "User";
       document.getElementById("profile-email").innerText = u.email || "";
-      document.getElementById("profile-avatar-letter").innerText = (u.username || "K").charAt(0).toUpperCase();
 
       // Withdraw Screen
-      document.getElementById("withdraw-available-balance").innerText = u.balance;
-      document.getElementById("withdraw-lifetime").innerText = u.lifetimeEarned || 0;
-      document.getElementById("form-balance-preview").innerText = u.balance;
+      document.getElementById("withdraw-available-balance").innerText = u.balance.toLocaleString('en-US');
+      document.getElementById("withdraw-lifetime").innerText = (u.lifetimeEarned || 0).toLocaleString('en-US');
+      document.getElementById("form-balance-preview").innerText = u.balance.toLocaleString('en-US');
 
       // Referral Screen
       document.getElementById("ref-network-size").innerText = allActiveReferrals.length;
-      document.getElementById("ref-commission-earned").innerText = u.commissionEarned || 0;
+      document.getElementById("ref-commission-earned").innerText = (u.commissionEarned || 0).toLocaleString('en-US');
       document.getElementById("ref-display-code").innerText = u.referralCode || "KHAN0000";
       document.getElementById("ref-link-input").value = window.location.origin + "/?ref=" + (u.referralCode || "");
 
-      // Level 1, 2, 3 Active counts
       const l1Active = appState.referrals.filter(r => (r.level === 1 || !r.level) && (Number(r.activePlansCount) || 0) > 0);
       const l2Active = appState.referrals.filter(r => r.level === 2 && (Number(r.activePlansCount) || 0) > 0);
       const l3Active = appState.referrals.filter(r => r.level === 3 && (Number(r.activePlansCount) || 0) > 0);
@@ -1470,62 +1401,52 @@
     }
 
     /* =========================================================================
-       7. DYNAMIC PLANS CATALOG RENDER
+       7. RENDER 10 FIXED PLANS (0 DATABASE READS)
        ========================================================================= */
     function renderPlansCatalog() {
       const container = document.getElementById("plans-catalog-container");
       if (!container) return;
 
-      const now = getSyncedNow();
-
-      container.innerHTML = dynamicPlans.map(plan => {
-        const isDiscountActive = plan.discountPercent > 0 && plan.discountExpiry > now;
-        const finalPrice = isDiscountActive ? Math.round(plan.price * (1 - plan.discountPercent / 100)) : plan.price;
-
-        return `
-          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#008047] to-[#006437] p-6 text-white shadow-lg shadow-emerald-900/15">
-            <div class="flex items-center justify-between">
-              <div class="text-[11px] font-bold uppercase tracking-wider text-emerald-200">${plan.name}</div>
-              ${isDiscountActive ? `
-                <span class="bg-[#f5c35a] text-[#12201a] text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                  ${plan.discountPercent}% OFF SALE
-                </span>
-              ` : ''}
-            </div>
-
-            <div class="flex items-baseline gap-2 mt-1 mb-0.5">
-              <div class="text-3xl font-extrabold">Rs ${finalPrice}</div>
-              ${isDiscountActive ? `<div class="text-base line-through text-emerald-300/80">Rs ${plan.price}</div>` : ''}
-            </div>
-            <div class="text-[12px] text-emerald-100 mb-5">One time payment</div>
-
-            <div class="grid grid-cols-3 gap-2 py-3 border-y border-white/10 mb-5">
-              <div class="text-center">
-                <div class="text-base font-bold">Rs ${plan.dailyIncome}</div>
-                <div class="text-[10px] uppercase font-semibold text-emerald-200 mt-0.5">DAILY</div>
-              </div>
-              <div class="text-center border-x border-white/10">
-                <div class="text-base font-bold">${plan.validityDays} days</div>
-                <div class="text-[10px] uppercase font-semibold text-emerald-200 mt-0.5">VALIDITY</div>
-              </div>
-              <div class="text-center">
-                <div class="text-base font-bold">Rs ${plan.totalReturn}</div>
-                <div class="text-[10px] uppercase font-semibold text-emerald-200 mt-0.5">RETURN</div>
-              </div>
-            </div>
-
-            <button onclick="openPaymentForm(${finalPrice}, '${escapeHtml(plan.name)}', ${plan.dailyIncome}, ${plan.validityDays}, ${plan.totalReturn})" class="w-full bg-white text-[#006437] hover:bg-gray-50 py-3.5 rounded-2xl font-bold text-[14px] shadow-sm active:scale-[0.99] transition">
-              Buy this plan
-            </button>
+      container.innerHTML = FIXED_PLANS.map(plan => `
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#008047] to-[#006437] p-6 text-white shadow-lg shadow-emerald-900/15">
+          <div class="flex items-center justify-between">
+            <div class="text-[11px] font-bold uppercase tracking-wider text-emerald-200">${plan.name}</div>
+            <span class="bg-white/20 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              60 Days Plan
+            </span>
           </div>
-        `;
-      }).join('');
+
+          <div class="flex items-baseline gap-2 mt-1 mb-0.5">
+            <div class="text-3xl font-extrabold">Rs ${plan.price.toLocaleString('en-US')}</div>
+          </div>
+          <div class="text-[12px] text-emerald-100 mb-5">One time investment</div>
+
+          <div class="grid grid-cols-3 gap-2 py-3 border-y border-white/10 mb-5">
+            <div class="text-center">
+              <div class="text-base font-bold">Rs ${plan.dailyIncome.toLocaleString('en-US')}</div>
+              <div class="text-[10px] uppercase font-semibold text-emerald-200 mt-0.5">DAILY</div>
+            </div>
+            <div class="text-center border-x border-white/10">
+              <div class="text-base font-bold">${plan.validityDays} days</div>
+              <div class="text-[10px] uppercase font-semibold text-emerald-200 mt-0.5">VALIDITY</div>
+            </div>
+            <div class="text-center">
+              <div class="text-base font-bold">Rs ${plan.totalReturn.toLocaleString('en-US')}</div>
+              <div class="text-[10px] uppercase font-semibold text-emerald-200 mt-0.5">RETURN</div>
+            </div>
+          </div>
+
+          <button onclick="openPaymentForm(${plan.price}, '${escapeHtml(plan.name)}', ${plan.dailyIncome}, ${plan.validityDays}, ${plan.totalReturn})" class="w-full bg-white text-[#006437] hover:bg-gray-50 py-3.5 rounded-2xl font-bold text-[14px] shadow-sm active:scale-[0.99] transition">
+            Buy this plan
+          </button>
+        </div>
+      `).join('');
 
       lucide.createIcons();
     }
 
     /* =========================================================================
-       8. TASK CLAIM BUG FIX WITH IMMEDIATE LOCK & 12:00 AM PKT COUNTDOWN
+       8. TASK CLAIM WITH ATOMIC DB VERIFICATION & MULTI-TAP SHIELD
        ========================================================================= */
     function renderMyPlans() {
       const activeContainer = document.getElementById("active-plans-container");
@@ -1533,7 +1454,7 @@
 
       const activePlans = appState.plans.filter(p => p.status === 'active');
       const dailyTotal = activePlans.reduce((sum, p) => sum + (Number(p.dailyIncome) || 0), 0);
-      if (dailyTotalSpan) dailyTotalSpan.innerText = dailyTotal;
+      if (dailyTotalSpan) dailyTotalSpan.innerText = dailyTotal.toLocaleString('en-US');
 
       if (activePlans.length === 0) {
         activeContainer.innerHTML = `
@@ -1563,8 +1484,8 @@
                 <i data-lucide="trending-up" class="w-5 h-5"></i>
               </div>
               <div>
-                <h4 class="text-[13px] font-bold text-[#12201a]">${plan.planName}</h4>
-                <p class="text-[11px] text-[#5f6f68] mt-0.5">Rs ${plan.dailyIncome} daily · ${plan.daysLeft} days left</p>
+                <h4 class="text-[13px] font-bold text-[#12201a]">${escapeHtml(plan.planName)}</h4>
+                <p class="text-[11px] text-[#5f6f68] mt-0.5">Rs ${Number(plan.dailyIncome).toLocaleString('en-US')} daily · ${plan.daysLeft} days left</p>
               </div>
             </div>
 
@@ -1575,7 +1496,7 @@
                   <span class="timer-display">${getTimeUntilMidnightPKT()}</span>
                 </div>
               ` : `
-                <button onclick="handleClaimIncome('${planKey}', this)" class="bg-[#008047] hover:bg-[#006437] text-white px-5 py-2.5 rounded-xl text-[12px] font-bold active:scale-95 transition shadow-xs">
+                <button onclick="handleClaimIncome('${planKey}', this)" class="claim-btn bg-[#008047] hover:bg-[#006437] text-white px-5 py-2.5 rounded-xl text-[12px] font-bold active:scale-95 transition shadow-xs">
                   Claim
                 </button>
               `}
@@ -1592,16 +1513,11 @@
       const hoursLeft = 23 - pkt.getHours();
       const minutesLeft = 59 - pkt.getMinutes();
       const secondsLeft = 59 - pkt.getSeconds();
-
-      const h = String(hoursLeft).padStart(2, '0');
-      const m = String(minutesLeft).padStart(2, '0');
-      const s = String(secondsLeft).padStart(2, '0');
-      return `${h}h ${m}m ${s}s`;
+      return `${String(hoursLeft).padStart(2, '0')}h ${String(minutesLeft).padStart(2, '0')}m ${String(secondsLeft).padStart(2, '0')}s`;
     }
 
     function startLiveIntervals() {
       if (countdownTimerId) clearInterval(countdownTimerId);
-
       countdownTimerId = setInterval(() => {
         const timerDisplays = document.querySelectorAll(".timer-display");
         if (timerDisplays.length > 0) {
@@ -1617,9 +1533,9 @@
       }, 1000);
     }
 
-    // Direct, Instant and Secure Claim Engine
-    function handleClaimIncome(planKey, btn) {
-      if (!currentUser) return;
+    // Anti-Tamper & Multi-Tap Claim
+    async function handleClaimIncome(planKey, btn) {
+      if (!currentUser || isClaiming) return;
 
       const targetPlan = appState.plans.find(p => p._fbKey === planKey || p.id === planKey);
       if (!targetPlan) {
@@ -1628,109 +1544,140 @@
       }
 
       const todayPKT = getPKTDateString();
-
-      // Check if already claimed today
       if (targetPlan.lastClaimDatePKT === todayPKT) {
-        showToast("error", "You have already claimed today. Next claim opens at 12:00 AM.");
+        showToast("error", "Already claimed today. Next claim at 12:00 AM.");
         return;
       }
 
+      isClaiming = true;
       setButtonLoading(btn, true, "Claiming…");
 
-      const income = Number(targetPlan.dailyIncome) || 10;
-      const newDaysLeft = Math.max(0, (targetPlan.daysLeft || targetPlan.totalDays) - 1);
-      const nowServerTime = getSyncedNow();
-      const fbKey = targetPlan._fbKey || planKey;
+      try {
+        const userSnap = await db.ref('users/' + currentUser.uid).once('value');
+        const userData = userSnap.val();
+        if (!userData) throw new Error("User record not found");
 
-      // 1. Immediately Lock in Local State to prevent double clicking
-      targetPlan.lastClaimDatePKT = todayPKT;
-      targetPlan.lastClaimTimestamp = nowServerTime;
-      targetPlan.daysLeft = newDaysLeft;
+        const realBalance = Number(userData.balance) || 0;
+        const realLifetime = Number(userData.lifetimeEarned) || 0;
+        const realToday = Number(userData.todayEarning) || 0;
+        const income = Number(targetPlan.dailyIncome) || 27;
+        const newDaysLeft = Math.max(0, (targetPlan.daysLeft || targetPlan.totalDays) - 1);
+        const nowServerTime = getSyncedNow();
+        const fbKey = targetPlan._fbKey || planKey;
 
-      // 2. Prepare Firebase Updates
-      const updates = {};
-      updates[`users/${currentUser.uid}/balance`] = appState.user.balance + income;
-      updates[`users/${currentUser.uid}/lifetimeEarned`] = (appState.user.lifetimeEarned || 0) + income;
-      updates[`users/${currentUser.uid}/todayEarning`] = (appState.user.todayEarning || 0) + income;
-      updates[`users/${currentUser.uid}/plans/${fbKey}/lastClaimDatePKT`] = todayPKT;
-      updates[`users/${currentUser.uid}/plans/${fbKey}/lastClaimTimestamp`] = nowServerTime;
-      updates[`users/${currentUser.uid}/plans/${fbKey}/daysLeft`] = newDaysLeft;
+        if (userData.plans && userData.plans[fbKey] && userData.plans[fbKey].lastClaimDatePKT === todayPKT) {
+          showToast("error", "Task already claimed on server.");
+          isClaiming = false;
+          setButtonLoading(btn, false);
+          return;
+        }
 
-      db.ref().update(updates).then(() => {
+        const updates = {};
+        updates[`users/${currentUser.uid}/balance`] = realBalance + income;
+        updates[`users/${currentUser.uid}/lifetimeEarned`] = realLifetime + income;
+        updates[`users/${currentUser.uid}/todayEarning`] = realToday + income;
+        updates[`users/${currentUser.uid}/plans/${fbKey}/lastClaimDatePKT`] = todayPKT;
+        updates[`users/${currentUser.uid}/plans/${fbKey}/lastClaimTimestamp`] = nowServerTime;
+        updates[`users/${currentUser.uid}/plans/${fbKey}/daysLeft`] = newDaysLeft;
+
+        await db.ref().update(updates);
         showToast("success", `Rs ${income} daily income successfully added!`);
         renderMyPlans();
-      }).catch((err) => {
-        // Revert local state if error
-        targetPlan.lastClaimDatePKT = null;
-        setButtonLoading(btn, false);
+      } catch (err) {
         showToast("error", err.message);
-      });
+      } finally {
+        isClaiming = false;
+        setButtonLoading(btn, false);
+      }
     }
 
     /* =========================================================================
-       9. PAYMENT & TID SUBMISSION (Plans Only)
+       9. PAYMENT & TID SUBMISSION (DUPLICATE TID CHECK + ANTI-SPAM)
        ========================================================================= */
-    let pendingPlanDetails = { price: 100, name: "Plan 01", daily: 10, days: 90, total: 900 };
+    let pendingPlanDetails = { price: 270, name: "Plan 01", daily: 27, days: 60, total: 1620 };
 
     function openPaymentForm(price, name, daily, days, total) {
       pendingPlanDetails = { price, name, daily, days, total };
       document.getElementById("pay-plan-badge").innerText = name;
-      document.getElementById("pay-plan-price").innerText = "Rs " + price;
-      document.getElementById("pay-plan-daily").innerText = "Rs " + daily;
+      document.getElementById("pay-plan-price").innerText = "Rs " + price.toLocaleString('en-US');
+      document.getElementById("pay-plan-daily").innerText = "Rs " + daily.toLocaleString('en-US');
       document.getElementById("pay-plan-validity").innerText = days + " days";
-      document.getElementById("pay-plan-total").innerText = "Rs " + total;
-      document.getElementById("pay-account-amount").innerText = "Rs " + price;
+      document.getElementById("pay-plan-total").innerText = "Rs " + total.toLocaleString('en-US');
+      document.getElementById("pay-account-amount").innerText = "Rs " + price.toLocaleString('en-US');
 
       updatePaymentAccountUI();
       navigateTo("payment");
     }
 
-    function submitPaymentRequest(e, form) {
+    async function submitPaymentRequest(e, form) {
       e.preventDefault();
-      if (!currentUser) return;
+      if (!currentUser || isSubmittingDeposit) return;
 
-      const tid = document.getElementById("pay-tid").value.trim();
+      const rawTid = document.getElementById("pay-tid").value.trim().toUpperCase();
+      const sanitizedTid = rawTid.replace(/[^A-Z0-9]/g, '');
       const senderNumber = document.getElementById("pay-sender-account").value.trim();
       const submitBtn = document.getElementById("btn-submit-payment");
 
-      if (!tid || senderNumber.length !== 11) {
-        showToast("error", "Please provide a valid TID and 11-digit sender mobile number.");
+      if (!sanitizedTid || sanitizedTid.length < 6 || senderNumber.length !== 11) {
+        showToast("error", "Please provide a valid TID (min 6 characters) and 11-digit mobile number.");
         return;
       }
 
-      setButtonLoading(submitBtn, true, "Submitting…");
+      isSubmittingDeposit = true;
+      setButtonLoading(submitBtn, true, "Verifying TID…");
 
-      const newPlanItem = {
-        id: "plan_" + Date.now(),
-        planName: pendingPlanDetails.name,
-        price: pendingPlanDetails.price,
-        dailyIncome: pendingPlanDetails.daily,
-        totalDays: pendingPlanDetails.days,
-        daysLeft: pendingPlanDetails.days,
-        status: "pending",
-        tid: tid,
-        senderNumber: senderNumber,
-        lastClaimDatePKT: null,
-        dateText: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
-        createdAt: firebase.database.ServerValue.TIMESTAMP
-      };
+      try {
+        const tidCheckSnap = await db.ref('used_tids/' + sanitizedTid).once('value');
+        if (tidCheckSnap.exists()) {
+          showToast("error", "This Transaction ID (TID) has already been submitted!");
+          setButtonLoading(submitBtn, false);
+          isSubmittingDeposit = false;
+          return;
+        }
 
-      db.ref('users/' + currentUser.uid + '/plans').push(newPlanItem).then(() => {
-        db.ref('admin_deposit_requests').push({
+        setButtonLoading(submitBtn, true, "Submitting…");
+
+        const newPlanKey = db.ref('users/' + currentUser.uid + '/plans').push().key;
+        const adminReqKey = db.ref('admin_deposit_requests').push().key;
+
+        const newPlanItem = {
+          id: "plan_" + Date.now(),
+          planName: pendingPlanDetails.name,
+          price: pendingPlanDetails.price,
+          dailyIncome: pendingPlanDetails.daily,
+          totalDays: pendingPlanDetails.days,
+          daysLeft: pendingPlanDetails.days,
+          status: "pending",
+          tid: sanitizedTid,
+          senderNumber: senderNumber,
+          lastClaimDatePKT: null,
+          dateText: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+          createdAt: firebase.database.ServerValue.TIMESTAMP
+        };
+
+        const updates = {};
+        updates[`used_tids/${sanitizedTid}`] = {
+          userId: currentUser.uid,
+          submittedAt: firebase.database.ServerValue.TIMESTAMP
+        };
+        updates[`users/${currentUser.uid}/plans/${newPlanKey}`] = newPlanItem;
+        updates[`admin_deposit_requests/${adminReqKey}`] = {
           userId: currentUser.uid,
           username: appState.user.username,
           upline1: appState.user.referredBy || null,
           ...newPlanItem
-        });
+        };
 
-        setButtonLoading(submitBtn, false);
+        await db.ref().update(updates);
         form.reset();
         showToast("info", "Plan deposit request submitted for admin approval.");
         navigateTo("deposit-history");
-      }).catch((err) => {
-        setButtonLoading(submitBtn, false);
+      } catch (err) {
         showToast("error", err.message);
-      });
+      } finally {
+        setButtonLoading(submitBtn, false);
+        isSubmittingDeposit = false;
+      }
     }
 
     /* =========================================================================
@@ -1748,19 +1695,20 @@
 
     function setWithdrawAmount(val) {
       const input = document.getElementById("withdraw-amount-input");
-      if (val === 'all') {
-        input.value = appState.user.balance;
-      } else {
-        input.value = val;
-      }
+      input.value = val === 'all' ? appState.user.balance : val;
     }
 
-    function handleWithdrawSubmit(e, form) {
+    async function handleWithdrawSubmit(e, form) {
       e.preventDefault();
-      if (!currentUser) return;
+      if (!currentUser || isSubmittingWithdraw) return;
 
       if (!isWithdrawOpen()) {
         showToast("error", `Withdrawals are closed. Operating hours are ${formatHourLabel(dynamicWithdrawTiming.openHour)} to ${formatHourLabel(dynamicWithdrawTiming.closeHour)}.`);
+        return;
+      }
+
+      if (!hasActivePlan()) {
+        showToast("error", "Withdrawal blocked. You must have at least 1 active investment plan.");
         return;
       }
 
@@ -1773,63 +1721,71 @@
         showToast("error", "Minimum withdrawal amount is Rs 20");
         return;
       }
-
       if (!/^[a-zA-Z\s]+$/.test(accName)) {
         showToast("error", "Account holder name must only contain letters");
         return;
       }
-
       if (!/^\d{11}$/.test(accNum)) {
         showToast("error", "Account number must be exactly 11 digits");
         return;
       }
 
-      if (amount > appState.user.balance) {
-        showToast("error", "Insufficient balance for this payout request");
-        return;
-      }
+      isSubmittingWithdraw = true;
+      setButtonLoading(submitBtn, true, "Verifying Balance…");
 
-      setButtonLoading(submitBtn, true, "Submitting…");
+      try {
+        const userSnap = await db.ref('users/' + currentUser.uid + '/balance').once('value');
+        const currentLiveBalance = Number(userSnap.val()) || 0;
 
-      const newWithdrawRecord = {
-        id: "w_" + Date.now(),
-        method: selectedWithdrawMethod,
-        amount: amount,
-        accountTitle: accName,
-        accountNumber: accNum,
-        status: "pending",
-        dateText: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true }),
-        createdAt: firebase.database.ServerValue.TIMESTAMP
-      };
+        if (amount > currentLiveBalance) {
+          showToast("error", "Insufficient server balance for this payout request");
+          setButtonLoading(submitBtn, false);
+          isSubmittingWithdraw = false;
+          return;
+        }
 
-      const updates = {};
-      updates[`users/${currentUser.uid}/balance`] = appState.user.balance - amount;
+        setButtonLoading(submitBtn, true, "Submitting…");
 
-      db.ref().update(updates).then(() => {
-        db.ref('users/' + currentUser.uid + '/withdrawals').push(newWithdrawRecord);
-        db.ref('admin_payout_requests').push({
+        const userWithdrawKey = db.ref('users/' + currentUser.uid + '/withdrawals').push().key;
+        const adminPayoutKey = db.ref('admin_payout_requests').push().key;
+
+        const newWithdrawRecord = {
+          id: "w_" + Date.now(),
+          method: selectedWithdrawMethod,
+          amount: amount,
+          accountTitle: accName,
+          accountNumber: accNum,
+          status: "pending",
+          dateText: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true }),
+          createdAt: firebase.database.ServerValue.TIMESTAMP
+        };
+
+        const updates = {};
+        updates[`users/${currentUser.uid}/balance`] = currentLiveBalance - amount;
+        updates[`users/${currentUser.uid}/withdrawals/${userWithdrawKey}`] = newWithdrawRecord;
+        updates[`admin_payout_requests/${adminPayoutKey}`] = {
           userId: currentUser.uid,
           username: appState.user.username,
           ...newWithdrawRecord
-        });
+        };
 
-        setButtonLoading(submitBtn, false);
+        await db.ref().update(updates);
         form.reset();
         showToast("success", "Withdrawal request submitted successfully.");
         navigateTo("withdraw-history");
-      }).catch((err) => {
-        setButtonLoading(submitBtn, false);
+      } catch (err) {
         showToast("error", err.message);
-      });
+      } finally {
+        setButtonLoading(submitBtn, false);
+        isSubmittingWithdraw = false;
+      }
     }
 
     /* =========================================================================
-       11. INTERACTIVE REFERRAL LEVELS SWITCHER (Level 1, Level 2, Level 3)
+       11. REFERRAL LEVELS SWITCHER
        ========================================================================= */
     function selectReferralLevel(levelNum) {
       selectedReferralLevel = levelNum;
-
-      // Update button visual styles
       for (let i = 1; i <= 3; i++) {
         const btn = document.getElementById(`ref-level-btn-${i}`);
         if (btn) {
@@ -1844,7 +1800,6 @@
           }
         }
       }
-
       renderSelectedReferralLevelUI();
     }
 
@@ -1859,7 +1814,6 @@
       titleEl.innerText = `Level ${selectedReferralLevel} Members`;
       tagEl.innerText = `${rates[selectedReferralLevel]} Commission`;
 
-      // Filter referrals belonging to the selected level who have active plans
       const levelMembers = appState.referrals.filter(r => {
         const rLevel = r.level || 1;
         const isActive = (Number(r.activePlansCount) || 0) > 0;
@@ -1867,7 +1821,7 @@
       });
 
       const totalLevelEarned = levelMembers.reduce((sum, m) => sum + (Number(m.earned) || 0), 0);
-      earnedEl.innerText = `Rs ${totalLevelEarned}`;
+      earnedEl.innerText = `Rs ${totalLevelEarned.toLocaleString('en-US')}`;
 
       if (levelMembers.length === 0) {
         container.innerHTML = `<p class="text-[12px] text-[#5f6f68] py-3 text-center">No active members in Level ${selectedReferralLevel}. Inactive users without plans are hidden.</p>`;
@@ -1886,7 +1840,7 @@
             </div>
           </div>
           <div class="text-right">
-            <span class="text-[12px] font-bold text-[#008047]">Rs ${m.earned || 0}</span>
+            <span class="text-[12px] font-bold text-[#008047]">Rs ${(m.earned || 0).toLocaleString('en-US')}</span>
             <span class="block text-[9px] text-[#5f6f68]">Commission</span>
           </div>
         </div>
@@ -1894,29 +1848,36 @@
     }
 
     /* =========================================================================
-       12. DEPOSIT HISTORY (Plans Only) & WITHDRAW HISTORY
+       12. DEPOSIT & WITHDRAW HISTORY PAGINATION (8 Records + "See More")
        ========================================================================= */
+    function loadMoreDepositHistory() {
+      depositVisibleCount += 8;
+      renderDepositHistory();
+    }
+
     function renderDepositHistory() {
       const container = document.getElementById("deposit-history-list");
+      const paginationContainer = document.getElementById("deposit-history-pagination");
       if (!container) return;
 
-      if (appState.plans.length === 0) {
-        container.innerHTML = `
-          <div class="bg-white border border-[#dcebe2] rounded-3xl p-8 text-center text-[#5f6f68] text-[12px]">
-            No plan deposit requests found.
-          </div>
-        `;
+      const totalPlans = appState.plans.length;
+
+      if (totalPlans === 0) {
+        container.innerHTML = `<div class="bg-white border border-[#dcebe2] rounded-3xl p-8 text-center text-[#5f6f68] text-[12px]">No plan deposit requests found.</div>`;
+        if (paginationContainer) paginationContainer.innerHTML = "";
         return;
       }
 
-      container.innerHTML = appState.plans.map(p => `
+      const visiblePlans = appState.plans.slice(0, depositVisibleCount);
+
+      container.innerHTML = visiblePlans.map(p => `
         <div class="bg-white border border-[#dcebe2] rounded-3xl p-4 shadow-sm flex items-center justify-between">
           <div>
             <div class="flex items-baseline gap-1.5">
-              <span class="text-[13px] font-bold text-[#12201a]">${p.planName}</span>
-              <span class="text-[13px] font-extrabold text-[#008047]">Rs ${p.price}</span>
+              <span class="text-[13px] font-bold text-[#12201a]">${escapeHtml(p.planName)}</span>
+              <span class="text-[13px] font-extrabold text-[#008047]">Rs ${Number(p.price).toLocaleString('en-US')}</span>
             </div>
-            <p class="text-[11px] text-[#5f6f68] mt-0.5">TID: ${p.tid}</p>
+            <p class="text-[11px] text-[#5f6f68] mt-0.5">TID: ${escapeHtml(p.tid)}</p>
             <p class="text-[11px] text-[#5f6f68]">Sender: ${p.senderNumber || 'N/A'} · ${p.dateText}</p>
           </div>
           <div>
@@ -1926,31 +1887,53 @@
           </div>
         </div>
       `).join('');
+
+      // Render "See More" Button if more records exist
+      if (paginationContainer) {
+        if (totalPlans > depositVisibleCount) {
+          const remaining = totalPlans - depositVisibleCount;
+          paginationContainer.innerHTML = `
+            <button onclick="loadMoreDepositHistory()" class="w-full bg-white hover:bg-gray-50 border border-[#dcebe2] text-[#008047] py-3 rounded-2xl text-[13px] font-bold flex items-center justify-center gap-1.5 shadow-sm active:scale-98 transition">
+              <i data-lucide="chevron-down" class="w-4 h-4"></i> See More (${remaining} remaining)
+            </button>
+          `;
+        } else {
+          paginationContainer.innerHTML = "";
+        }
+      }
+
       lucide.createIcons();
+    }
+
+    function loadMoreWithdrawHistory() {
+      withdrawVisibleCount += 8;
+      renderWithdrawHistory();
     }
 
     function renderWithdrawHistory() {
       const container = document.getElementById("withdraw-history-list");
+      const paginationContainer = document.getElementById("withdraw-history-pagination");
       if (!container) return;
 
-      if (appState.withdrawals.length === 0) {
-        container.innerHTML = `
-          <div class="bg-white border border-[#dcebe2] rounded-3xl p-8 text-center text-[#5f6f68] text-[12px]">
-            No payout requests yet.
-          </div>
-        `;
+      const totalWithdrawals = appState.withdrawals.length;
+
+      if (totalWithdrawals === 0) {
+        container.innerHTML = `<div class="bg-white border border-[#dcebe2] rounded-3xl p-8 text-center text-[#5f6f68] text-[12px]">No payout requests yet.</div>`;
+        if (paginationContainer) paginationContainer.innerHTML = "";
         return;
       }
 
-      container.innerHTML = appState.withdrawals.map(w => `
+      const visibleWithdrawals = appState.withdrawals.slice(0, withdrawVisibleCount);
+
+      container.innerHTML = visibleWithdrawals.map(w => `
         <div class="bg-white border border-[#dcebe2] rounded-3xl p-4 shadow-sm flex items-center justify-between">
           <div>
             <div class="flex items-baseline gap-1.5">
-              <span class="text-[13px] font-bold text-[#12201a]">${w.method}</span>
-              <span class="text-[13px] font-extrabold text-[#008047]">Rs ${w.amount}</span>
+              <span class="text-[13px] font-bold text-[#12201a]">${escapeHtml(w.method)}</span>
+              <span class="text-[13px] font-extrabold text-[#008047]">Rs ${Number(w.amount).toLocaleString('en-US')}</span>
             </div>
             <p class="text-[11px] text-[#5f6f68] mt-0.5">${w.dateText}</p>
-            <p class="text-[11px] text-[#5f6f68]">Account: ${w.accountNumber}</p>
+            <p class="text-[11px] text-[#5f6f68]">Account: ${escapeHtml(w.accountNumber)}</p>
           </div>
           <div>
             <span class="inline-flex items-center gap-1 ${w.status === 'approved' ? 'bg-[#ecf8f1] text-[#0d7a4a] ring-1 ring-[#c3e9d4]' : w.status === 'rejected' ? 'bg-[#fdf0f0] text-[#b3261e] ring-1 ring-[#f4cccc]' : 'bg-[#fff8e8] text-[#a15c07] ring-1 ring-[#f6e0b0]'} rounded-full font-semibold px-2.5 py-1 text-[11px]">
@@ -1959,11 +1942,26 @@
           </div>
         </div>
       `).join('');
+
+      // Render "See More" Button if more records exist
+      if (paginationContainer) {
+        if (totalWithdrawals > withdrawVisibleCount) {
+          const remaining = totalWithdrawals - withdrawVisibleCount;
+          paginationContainer.innerHTML = `
+            <button onclick="loadMoreWithdrawHistory()" class="w-full bg-white hover:bg-gray-50 border border-[#dcebe2] text-[#008047] py-3 rounded-2xl text-[13px] font-bold flex items-center justify-center gap-1.5 shadow-sm active:scale-98 transition">
+              <i data-lucide="chevron-down" class="w-4 h-4"></i> See More (${remaining} remaining)
+            </button>
+          `;
+        } else {
+          paginationContainer.innerHTML = "";
+        }
+      }
+
       lucide.createIcons();
     }
 
     /* =========================================================================
-       13. AUTHENTICATION HANDLERS (Email & Password Only)
+       13. AUTH HANDLERS
        ========================================================================= */
     function handleEmailLogin(e, form) {
       e.preventDefault();
@@ -1974,13 +1972,17 @@
       setButtonLoading(btn, true, "Signing in…");
 
       auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          setButtonLoading(btn, false);
+        .then((cred) => {
+          const newSessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+          localStorage.setItem('kc_session_id', newSessionId);
+          db.ref('users/' + cred.user.uid + '/activeSessionId').set(newSessionId);
           showToast("success", "Welcome back to Khan Company!");
         })
         .catch((err) => {
-          setButtonLoading(btn, false);
           showToast("error", err.message);
+        })
+        .finally(() => {
+          setButtonLoading(btn, false);
         });
     }
 
@@ -2002,46 +2004,37 @@
 
       auth.createUserWithEmailAndPassword(email, password)
         .then((cred) => {
-          createNewUserRecord(cred.user, username, refCode).then(() => {
-            setButtonLoading(btn, false);
-            showToast("success", "Khan Company account created successfully!");
-          });
+          return createNewUserRecord(cred.user, username, refCode);
+        })
+        .then(() => {
+          showToast("success", "Khan Company account created successfully!");
         })
         .catch((err) => {
-          setButtonLoading(btn, false);
           showToast("error", err.message);
+        })
+        .finally(() => {
+          setButtonLoading(btn, false);
         });
     }
 
-    function handleForgotPassword() {
-      const email = document.getElementById("login-email").value.trim();
-      if (!email) {
-        showToast("error", "Enter your email address first");
-        return;
-      }
-      auth.sendPasswordResetEmail(email)
-        .then(() => showToast("info", "Password reset link sent to your email"))
-        .catch(err => showToast("error", err.message));
-    }
-
-    function handleSignOut(btn) {
-      setButtonLoading(btn, true, "Signing out…");
+    function handleSignOut(btn, customMsg = null) {
+      if (btn) setButtonLoading(btn, true, "Signing out…");
+      localStorage.removeItem('kc_session_id');
       auth.signOut().then(() => {
-        setButtonLoading(btn, false);
-        showToast("info", "Signed out successfully.");
+        showToast(customMsg ? "error" : "info", customMsg || "Signed out successfully.");
         navigateTo("login");
+      }).finally(() => {
+        if (btn) setButtonLoading(btn, false);
       });
     }
 
     /* =========================================================================
-       14. CLIPBOARD & UTILITY FUNCTIONS
+       14. UTILITIES
        ========================================================================= */
     function copyText(text, successMsg = "Copied to clipboard") {
       if (!text) return;
       if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(text).then(() => {
-          showToast("info", successMsg);
-        }).catch(() => fallbackCopy(text, successMsg));
+        navigator.clipboard.writeText(text).then(() => showToast("info", successMsg)).catch(() => fallbackCopy(text, successMsg));
       } else {
         fallbackCopy(text, successMsg);
       }
@@ -2052,11 +2045,9 @@
       textArea.value = text;
       textArea.style.position = "fixed";
       textArea.style.left = "-999999px";
-      textArea.style.top = "-999999px";
       document.body.appendChild(textArea);
       textArea.focus();
       textArea.select();
-
       try {
         document.execCommand('copy');
         showToast("info", successMsg);
@@ -2087,34 +2078,16 @@
       const toast = document.createElement("div");
       toast.className = "toast-enter pointer-events-auto bg-white border border-[#dcebe2] rounded-xl p-[12px_14px] shadow-toast flex items-center gap-3 transition-all duration-180";
 
-      let iconMarkup = "";
-      if (type === "success") {
-        iconMarkup = `
-          <div class="w-[26px] h-[26px] rounded-full bg-[#ecf8f1] border border-[#c3e9d4] flex items-center justify-center shrink-0 text-[#0d7a4a]">
-            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
-          </div>
-        `;
-      } else if (type === "error") {
-        iconMarkup = `
-          <div class="w-[26px] h-[26px] rounded-full bg-[#fdf0f0] border border-[#f4cccc] flex items-center justify-center shrink-0 text-[#b3261e]">
-            <i data-lucide="x-circle" class="w-3.5 h-3.5"></i>
-          </div>
-        `;
-      } else {
-        iconMarkup = `
-          <div class="w-[26px] h-[26px] rounded-full bg-[#eef3f0] border border-[#dcebe2] flex items-center justify-center shrink-0 text-[#008047]">
-            <i data-lucide="check" class="w-3.5 h-3.5"></i>
-          </div>
-        `;
-      }
+      let iconMarkup = type === "success" 
+        ? `<div class="w-[26px] h-[26px] rounded-full bg-[#ecf8f1] border border-[#c3e9d4] flex items-center justify-center shrink-0 text-[#0d7a4a]"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i></div>`
+        : type === "error"
+        ? `<div class="w-[26px] h-[26px] rounded-full bg-[#fdf0f0] border border-[#f4cccc] flex items-center justify-center shrink-0 text-[#b3261e]"><i data-lucide="x-circle" class="w-3.5 h-3.5"></i></div>`
+        : `<div class="w-[26px] h-[26px] rounded-full bg-[#eef3f0] border border-[#dcebe2] flex items-center justify-center shrink-0 text-[#008047]"><i data-lucide="check" class="w-3.5 h-3.5"></i></div>`;
 
-      toast.innerHTML = `
-        ${iconMarkup}
-        <span class="text-[13px] font-semibold text-[#12201a] leading-tight break-words flex-1">${escapeHtml(message)}</span>
-      `;
+      toast.innerHTML = `${iconMarkup}<span class="text-[13px] font-semibold text-[#12201a] leading-tight break-words flex-1">${escapeHtml(message)}</span>`;
 
       const duration = type === "error" ? 4500 : 3000;
-      let timer = setTimeout(() => dismissToast(toast), duration);
+      setTimeout(() => dismissToast(toast), duration);
 
       toast.addEventListener("click", () => dismissToast(toast));
       toastContainer.appendChild(toast);
@@ -2126,7 +2099,6 @@
     function dismissToast(element) {
       const idx = activeToasts.findIndex(t => t.element === element);
       if (idx !== -1) activeToasts.splice(idx, 1);
-
       element.classList.remove("toast-enter");
       element.classList.add("toast-exit");
       setTimeout(() => {
@@ -2160,13 +2132,31 @@
       }[tag] || tag));
     }
 
+    // 15. URL & Referral Handling on Page Load
     window.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
+      renderPlansCatalog();
+
       const urlParams = new URLSearchParams(window.location.search);
       const refParam = urlParams.get('ref');
+
       if (refParam) {
+        const cleanRef = refParam.trim().toUpperCase();
         const regRefInput = document.getElementById("reg-referral");
-        if (regRefInput) regRefInput.value = refParam.toUpperCase();
+        const lockedBadge = document.getElementById("ref-locked-badge");
+
+        if (regRefInput) {
+          regRefInput.value = cleanRef;
+          regRefInput.readOnly = true;
+          regRefInput.classList.add("bg-[#f0f4f2]", "cursor-not-allowed", "text-[#008047]", "font-bold");
+        }
+        if (lockedBadge) {
+          lockedBadge.classList.remove("hidden");
+        }
+
+        if (!auth.currentUser) {
+          navigateTo('register');
+        }
       }
     });
   </script>
