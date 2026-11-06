@@ -1070,22 +1070,9 @@
         currentUser = user;
         userDbRef = db.ref('users/' + user.uid);
 
-        let currentLocalSession = localStorage.getItem('kc_session_id');
-        if (!currentLocalSession) {
-          currentLocalSession = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
-          localStorage.setItem('kc_session_id', currentLocalSession);
-          userDbRef.child('activeSessionId').set(currentLocalSession);
-        }
-
         userDbRef.on('value', (snapshot) => {
           const data = snapshot.val();
           if (data) {
-            // SECURITY: Single Device Active Session Enforcer
-            if (data.activeSessionId && currentLocalSession && data.activeSessionId !== currentLocalSession) {
-              handleSignOut(null, "Your account was logged in on another device.");
-              return;
-            }
-
             appState.user = {
               uid: user.uid,
               username: data.username || user.email.split('@')[0],
@@ -1096,8 +1083,7 @@
               lifetimeEarned: Number(data.lifetimeEarned) || 0,
               todayEarning: Number(data.todayEarning) || 0,
               networkSize: Number(data.networkSize) || 0,
-              commissionEarned: Number(data.commissionEarned) || 0,
-              activeSessionId: data.activeSessionId || null
+              commissionEarned: Number(data.commissionEarned) || 0
             };
 
             // Latest first sorting
@@ -1202,8 +1188,6 @@
     async function createNewUserRecord(user, customUsername = null, referralProvided = null) {
       const username = customUsername || user.displayName || user.email.split('@')[0];
       const uniqueRefCode = await generateUniqueReferralCode();
-      const newSessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
-      localStorage.setItem('kc_session_id', newSessionId);
 
       let upline1 = null, upline2 = null, upline3 = null;
 
@@ -1238,7 +1222,6 @@
         todayEarning: 0,
         networkSize: 0,
         commissionEarned: 0,
-        activeSessionId: newSessionId,
         createdAt: firebase.database.ServerValue.TIMESTAMP
       };
 
@@ -1972,10 +1955,7 @@
       setButtonLoading(btn, true, "Signing in…");
 
       auth.signInWithEmailAndPassword(email, password)
-        .then((cred) => {
-          const newSessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
-          localStorage.setItem('kc_session_id', newSessionId);
-          db.ref('users/' + cred.user.uid + '/activeSessionId').set(newSessionId);
+        .then(() => {
           showToast("success", "Welcome back to Khan Company!");
         })
         .catch((err) => {
@@ -2017,11 +1997,10 @@
         });
     }
 
-    function handleSignOut(btn, customMsg = null) {
+    function handleSignOut(btn) {
       if (btn) setButtonLoading(btn, true, "Signing out…");
-      localStorage.removeItem('kc_session_id');
       auth.signOut().then(() => {
-        showToast(customMsg ? "error" : "info", customMsg || "Signed out successfully.");
+        showToast("info", "Signed out successfully.");
         navigateTo("login");
       }).finally(() => {
         if (btn) setButtonLoading(btn, false);
