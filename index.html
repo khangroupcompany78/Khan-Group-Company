@@ -42,7 +42,6 @@
       font-family: inherit;
     }
 
-    /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 0px;
       background: transparent;
@@ -50,33 +49,21 @@
 
     /* Toast Animations */
     .toast-enter {
-      animation: toastIn 220ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation: toastIn 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .toast-exit {
-      animation: toastOut 160ms ease forwards;
+      animation: toastOut 150ms ease forwards;
     }
 
     @keyframes toastIn {
-      0% {
-        opacity: 0;
-        transform: translateY(-14px) scale(0.96);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      0% { opacity: 0; transform: translateY(-12px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     @keyframes toastOut {
-      0% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-8px);
-      }
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-8px); }
     }
 
     /* Button Loading Spinner */
@@ -86,7 +73,7 @@
       border: 2px solid currentColor;
       border-right-color: transparent;
       border-radius: 9999px;
-      animation: spin 700ms linear infinite;
+      animation: spin 650ms linear infinite;
       display: inline-block;
     }
 
@@ -94,7 +81,7 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Footer Active State Styling */
+    /* Tab Styling */
     .nav-tab.active .tab-icon-box {
       background-color: #008047;
       color: #ffffff !important;
@@ -110,18 +97,15 @@
       color: #5f6f68;
     }
 
-    /* Payout Method Disabled State when Window is Closed */
     .method-disabled {
-      opacity: 0.55;
+      opacity: 0.6;
       filter: grayscale(0.5);
-      cursor: not-allowed;
     }
 
     .shadow-toast {
-      box-shadow: 0 10px 30px -18px rgba(4, 42, 28, 0.45);
+      box-shadow: 0 10px 28px -12px rgba(4, 42, 28, 0.35);
     }
 
-    /* Referral Level Tab Active State */
     .ref-level-btn.active-level {
       background-color: #008047 !important;
       color: #ffffff !important;
@@ -135,7 +119,6 @@
 
 <body class="bg-[#eef3f0] text-[#12201a] antialiased flex justify-center min-h-screen">
 
-  <!-- Mobile App Frame -->
   <div id="app-container" class="relative w-full max-w-[440px] min-h-screen bg-[#f8faf9] flex flex-col shadow-2xl overflow-x-hidden">
 
     <!-- Global Toast Container -->
@@ -202,7 +185,7 @@
               <label class="block text-[12px] font-medium text-[#12201a] mb-1">Username</label>
               <div class="relative">
                 <span class="absolute left-3.5 top-3 text-[#5f6f68] text-[13px]">@</span>
-                <input type="text" id="reg-username" required placeholder="yourname" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl pl-9 pr-3 py-3 text-[13px] focus:outline-none focus:border-[#008047]" />
+                <input type="text" id="reg-username" required maxlength="25" placeholder="yourname" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl pl-9 pr-3 py-3 text-[13px] focus:outline-none focus:border-[#008047]" />
               </div>
             </div>
 
@@ -263,7 +246,7 @@
           <div>
             <span class="text-[11px] font-bold tracking-wider text-[#008047] uppercase">KHAN GROUP OF COMPANY</span>
             <h2 class="text-2xl font-bold text-[#12201a] flex items-center gap-1.5">
-              Hi, <span id="dash-username">user</span>
+              Hi, <span id="dash-username">User</span>
             </h2>
           </div>
           <button onclick="navigateTo('withdraw')" class="border border-[#dcebe2] bg-white px-4 py-1.5 rounded-full text-[12px] font-semibold text-[#12201a] shadow-sm active:scale-95 transition">
@@ -368,7 +351,7 @@
       </section>
 
       <!-- ============================================== -->
-      <!-- SCREEN: PLANS (10 Fixed Plans - 0 Quota)       -->
+      <!-- SCREEN: PLANS (10 Fixed Plans)                 -->
       <!-- ============================================== -->
       <section id="view-plans" class="view hidden px-5 pt-6 pb-4 space-y-4">
         <div>
@@ -380,28 +363,6 @@
         </div>
 
         <div id="plans-catalog-container" class="space-y-4"></div>
-
-        <div class="bg-white border border-[#dcebe2] rounded-3xl p-5 shadow-sm space-y-4">
-          <h3 class="text-sm font-bold text-[#12201a]">How it works</h3>
-          <div class="space-y-3.5 text-[12px]">
-            <div class="flex items-start gap-3">
-              <div class="w-6 h-6 rounded-full bg-[#ecf8f1] text-[#008047] font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">1</div>
-              <p class="text-[#5f6f68] leading-relaxed"><strong class="text-[#12201a]">Select a plan</strong> and send payment to our official account details.</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-6 h-6 rounded-full bg-[#ecf8f1] text-[#008047] font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">2</div>
-              <p class="text-[#5f6f68] leading-relaxed"><strong class="text-[#12201a]">Submit transaction ID (TID)</strong> along with your sending account number.</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-6 h-6 rounded-full bg-[#ecf8f1] text-[#008047] font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">3</div>
-              <p class="text-[#5f6f68] leading-relaxed"><strong class="text-[#12201a]">Admin activates plan</strong> after fast verification.</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-6 h-6 rounded-full bg-[#ecf8f1] text-[#008047] font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">4</div>
-              <p class="text-[#5f6f68] leading-relaxed"><strong class="text-[#12201a]">Claim daily income</strong> everyday until validity completes.</p>
-            </div>
-          </div>
-        </div>
       </section>
 
       <!-- ============================================== -->
@@ -490,9 +451,9 @@
             </div>
 
             <div>
-              <label class="block text-[11px] uppercase tracking-wider font-bold text-[#12201a] mb-1.5">YOUR SENDER ACCOUNT NUMBER</label>
+              <label class="block text-[11px] uppercase tracking-wider font-bold text-[#12201a] mb-1.5">YOUR SENDER ACCOUNT NUMBER (11 Digits)</label>
               <input type="tel" inputmode="numeric" id="pay-sender-account" required placeholder="03001234567" maxlength="11" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 11)" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl px-3.5 py-3 text-[13px] focus:outline-none focus:border-[#008047]" />
-              <p class="text-[11px] text-[#5f6f68] mt-1.5">11 digit mobile number you paid from.</p>
+              <p class="text-[11px] text-[#5f6f68] mt-1.5">Enter 11-digit mobile number you paid from.</p>
             </div>
 
             <button type="submit" id="btn-submit-payment" class="w-full bg-[#008047] hover:bg-[#006437] text-white py-3.5 rounded-xl text-[14px] font-semibold active:scale-[0.99] transition flex items-center justify-center gap-2 mt-2">
@@ -522,7 +483,7 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <h3 class="text-sm font-bold text-[#12201a]">Active Income Streams</h3>
-            <span class="text-[11px] text-[#5f6f68]">Resets daily at 12:00 AM</span>
+            <span class="text-[11px] text-[#5f6f68]">Resets at 12:00 AM PKT</span>
           </div>
           <div id="active-plans-container" class="space-y-3"></div>
         </div>
@@ -554,7 +515,7 @@
             <span id="withdraw-time-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#f5c35a] text-[#12201a]">
               <span class="w-2 h-2 rounded-full bg-[#12201a] animate-pulse"></span> Open now
             </span>
-            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/20 text-emerald-50 text-[11px]" id="withdraw-hours-label">
+            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/20 text-emerald-50 text-[11px]">
               <i data-lucide="clock" class="w-3 h-3"></i> 09:00 AM – 10:00 PM
             </span>
             <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/10 text-emerald-50 text-[11px]">
@@ -563,7 +524,7 @@
           </div>
 
           <div class="pt-3 border-t border-white/10 text-[12px] text-emerald-100 flex justify-between">
-            <span>Active Plan Required</span>
+            <span id="plan-requirement-badge">Active Plan Required</span>
             <span>Lifetime: Rs <span id="withdraw-lifetime">0</span></span>
           </div>
         </div>
@@ -652,7 +613,7 @@
           <img id="withdraw-method-logo" src="" alt="logo" class="w-10 h-10 rounded-xl object-contain border border-gray-100 p-0.5" />
           <div>
             <h3 class="text-[13px] font-bold text-[#12201a]" id="withdraw-method-title">Easypaisa</h3>
-            <p class="text-[11px] text-[#5f6f68]">Operating time: <span id="form-withdraw-hours">09:00 AM – 10:00 PM</span></p>
+            <p class="text-[11px] text-[#5f6f68]">Operating time: 09:00 AM – 10:00 PM PKT</p>
           </div>
         </div>
 
@@ -681,13 +642,13 @@
           <div class="bg-white border border-[#dcebe2] rounded-3xl p-5 space-y-3.5">
             <div>
               <label class="block text-[11px] uppercase font-bold tracking-wider text-[#5f6f68] mb-1.5">ACCOUNT HOLDER NAME (Letters only)</label>
-              <input type="text" id="withdraw-account-name" required placeholder="e.g. Muhammad Ali" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl px-3.5 py-3 text-[13px] focus:outline-none focus:border-[#008047]" />
+              <input type="text" id="withdraw-account-name" required placeholder="e.g. Muhammad Ali" maxlength="40" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl px-3.5 py-3 text-[13px] focus:outline-none focus:border-[#008047]" />
             </div>
 
             <div>
               <label class="block text-[11px] uppercase font-bold tracking-wider text-[#5f6f68] mb-1.5" id="withdraw-acc-label">ACCOUNT NUMBER (11 Digits)</label>
               <input type="tel" inputmode="numeric" id="withdraw-account-num" required maxlength="11" placeholder="03001234567" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 11)" class="w-full bg-[#fcfdfc] border border-[#dcebe2] rounded-xl px-3.5 py-3 text-[13px] focus:outline-none focus:border-[#008047]" />
-              <p class="text-[11px] text-[#5f6f68] mt-1.5">Enter exact 11-digit mobile wallet number.</p>
+              <p class="text-[11px] text-[#5f6f68] mt-1.5">Enter exact 11-digit mobile wallet number (e.g. 03211234567).</p>
             </div>
           </div>
 
@@ -699,7 +660,7 @@
       </section>
 
       <!-- ============================================== -->
-      <!-- SCREEN: WITHDRAW HISTORY (With See More)       -->
+      <!-- SCREEN: WITHDRAW HISTORY                       -->
       <!-- ============================================== -->
       <section id="view-withdraw-history" class="view hidden px-5 pt-6 pb-4 space-y-4">
         <div class="flex items-center gap-3">
@@ -716,7 +677,7 @@
       </section>
 
       <!-- ============================================== -->
-      <!-- SCREEN: DEPOSIT HISTORY (With See More)        -->
+      <!-- SCREEN: DEPOSIT HISTORY                        -->
       <!-- ============================================== -->
       <section id="view-deposit-history" class="view hidden px-5 pt-6 pb-4 space-y-4">
         <div class="flex items-center gap-3">
@@ -759,7 +720,6 @@
           </div>
         </div>
 
-        <!-- Referral Link Share Box -->
         <div class="bg-white border border-[#dcebe2] rounded-3xl p-5 shadow-sm space-y-3">
           <div class="flex items-center justify-between">
             <div>
@@ -782,7 +742,6 @@
           </p>
         </div>
 
-        <!-- 3 Tiers Selector -->
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-[#5f6f68] block mb-2 px-1">SELECT LEVEL TO VIEW</span>
           <div class="grid grid-cols-3 gap-2">
@@ -938,18 +897,18 @@
 
   <script>
     /* =========================================================================
-       KHAN COMPANY - 10 FIXED PLANS & OPTIMIZED PAGINATION ENGINE
+       KHAN COMPANY - PRODUCTION ENGINE & SECURITY ENHANCEMENTS
        ========================================================================= */
 
     // 1. FIREBASE CONFIGURATION
     const firebaseConfig = {
-  apiKey: "AIzaSyCtLp7vu5JJM0pbRn_g4zV6jENDR6cnUv0",
-  authDomain: "khan-company-3be4e.firebaseapp.com",
-  projectId: "khan-company-3be4e",
-  storageBucket: "khan-company-3be4e.firebasestorage.app",
-  messagingSenderId: "360801093061",
-  appId: "1:360801093061:web:11caadbc07c89990d0b7ac"
-};
+      apiKey: "AIzaSyCtLp7vu5JJM0pbRn_g4zV6jENDR6cnUv0",
+      authDomain: "khan-company-3be4e.firebaseapp.com",
+      projectId: "khan-company-3be4e",
+      storageBucket: "khan-company-3be4e.firebasestorage.app",
+      messagingSenderId: "360801093061",
+      appId: "1:360801093061:web:11caadbc07c89990d0b7ac"
+    };
 
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
@@ -958,7 +917,7 @@
     const auth = firebase.auth();
     const db = firebase.database();
 
-    // OPTIMIZATION: Disconnect on Page Inactive (Saves 100 simultaneous connection slots)
+    // OPTIMIZATION: Disconnect listeners on Page Inactive to save Firebase Connections
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "hidden") {
         db.goOffline();
@@ -968,41 +927,13 @@
     });
 
     // =========================================================================
-    // ANTI-TIME-TAMPER ENGINE: Hardware Monotonic Clock (Mobile Time Proof)
+    // 2. FIXED CONFIGURATION (HARDCODED - FIREBASE SE CHANGE NAHI HO SAKTA)
     // =========================================================================
-    let baseServerEpoch = Date.now();
-    let basePerfTime = performance.now();
-    let isTimeSynced = false;
-
-    // Firebase server timestamp se calibrate karein (user phone clock immune)
-    db.ref(".info/serverTimeOffset").once("value", (snap) => {
-      const offset = snap.val() || 0;
-      baseServerEpoch = Date.now() + offset;
-      basePerfTime = performance.now();
-      isTimeSynced = true;
+    const WITHDRAW_HOURS = Object.freeze({
+      openHour: 9,   // 09:00 AM PKT
+      closeHour: 22  // 10:00 PM PKT (22:00)
     });
 
-    // performance.now() phone ki date ya time aage peeche karne se change NAHI hota
-    function getSyncedNow() {
-      return baseServerEpoch + Math.round(performance.now() - basePerfTime);
-    }
-
-    function getPKTDate(timestamp = getSyncedNow()) {
-      // Direct UTC conversion to PKT (UTC+5), phone timezone se azad
-      return new Date(timestamp + (5 * 3600000));
-    }
-
-    function getPKTDateString(timestamp = getSyncedNow()) {
-      const pkt = getPKTDate(timestamp);
-      const y = pkt.getUTCFullYear();
-      const m = String(pkt.getUTCMonth() + 1).padStart(2, '0');
-      const d = String(pkt.getUTCDate()).padStart(2, '0');
-      return `${y}-${m}-${d}`;
-    }
-
-    // =========================================================================
-    // 10 FIXED INVESTMENT PLANS (HARDCODED IN JS - 0 FIREBASE READS USED)
-    // =========================================================================
     const FIXED_PLANS = [
       { id: "plan_270",    name: "Plan 01", price: 270,    dailyIncome: 27,    validityDays: 60, totalReturn: 1620 },
       { id: "plan_500",    name: "Plan 02", price: 500,    dailyIncome: 50,    validityDays: 60, totalReturn: 3000 },
@@ -1016,24 +947,61 @@
       { id: "plan_500000", name: "Plan 10", price: 500000, dailyIncome: 50000, validityDays: 60, totalReturn: 3000000 }
     ];
 
-    let dynamicPaymentAccount = {
+    const dynamicPaymentAccount = Object.freeze({
       method: "Easypaisa",
       title: "Taufeeq Ahmed",
       number: "03262550724"
-    };
+    });
 
-    let dynamicWithdrawTiming = {
-      openHour: 9,
-      closeHour: 22
-    };
-
-    const METHOD_LOGOS = {
+    const METHOD_LOGOS = Object.freeze({
       Easypaisa: "https://i.postimg.cc/R0DVWxTL/Screenshot-20261027-005853-1.jpg",
       JazzCash: "https://i.postimg.cc/9frc5NjS/Screenshot-20261027-005908-2.jpg",
       NayaPay: "https://i.postimg.cc/RhQBQkc5/Screenshot-20261027-010525-2.jpg",
       SadaPay: "https://i.postimg.cc/RV49V0BC/IMG-17b4bbf7-4e1a-4966-950b-85bd9ee676fb.png",
       UPaisa: "https://i.postimg.cc/x8PwbK2D/Screenshot-20261027-010856-2.jpg"
-    };
+    });
+
+    // =========================================================================
+    // 3. BULLETPROOF TIMEZONE & TIME-TAMPER ENGINE (PKT UTC+5)
+    // =========================================================================
+    let serverTimeDelta = 0;
+    let basePerfStamp = performance.now();
+    let baseClientEpoch = Date.now();
+
+    db.ref(".info/serverTimeOffset").on("value", (snap) => {
+      serverTimeDelta = Number(snap.val()) || 0;
+      basePerfStamp = performance.now();
+      baseClientEpoch = Date.now();
+    });
+
+    function getSyncedNow() {
+      // performance.now() phone date badal dene se change nahi hota
+      const elapsedSinceSync = Math.round(performance.now() - basePerfStamp);
+      return baseClientEpoch + serverTimeDelta + elapsedSinceSync;
+    }
+
+    // Har device par 100% accurate Pakistan Standard Time (PKT = UTC+5)
+    function getPKTTimeParts(timestamp = getSyncedNow()) {
+      const pktDate = new Date(timestamp + (5 * 60 * 60 * 1000));
+      return {
+        year: pktDate.getUTCFullYear(),
+        month: pktDate.getUTCMonth() + 1,
+        date: pktDate.getUTCDate(),
+        hours: pktDate.getUTCHours(),       // 0 to 23 PKT Hours (Purely Device-Timezone Immune)
+        minutes: pktDate.getUTCMinutes(),
+        seconds: pktDate.getUTCSeconds()
+      };
+    }
+
+    function getPKTDateString(timestamp = getSyncedNow()) {
+      const p = getPKTTimeParts(timestamp);
+      return `${p.year}-${String(p.month).padStart(2, '0')}-${String(p.date).padStart(2, '0')}`;
+    }
+
+    function isWithdrawOpen() {
+      const p = getPKTTimeParts();
+      return p.hours >= WITHDRAW_HOURS.openHour && p.hours < WITHDRAW_HOURS.closeHour;
+    }
 
     // App State
     let currentUser = null;
@@ -1042,12 +1010,12 @@
     let countdownTimerId = null;
     let selectedReferralLevel = 1;
 
-    // Concurrency / Multi-Tap Locks (Anti-Spam)
+    // Mutex / Concurrency Shields
     let isClaiming = false;
     let isSubmittingDeposit = false;
     let isSubmittingWithdraw = false;
 
-    // PAGINATION LIMITS (Initial 8 items, then +8 each click)
+    // Pagination
     let depositVisibleCount = 8;
     let withdrawVisibleCount = 8;
 
@@ -1062,8 +1030,7 @@
         lifetimeEarned: 0,
         todayEarning: 0,
         networkSize: 0,
-        commissionEarned: 0,
-        activeSessionId: null
+        commissionEarned: 0
       },
       plans: [],
       withdrawals: [],
@@ -1071,14 +1038,14 @@
     };
 
     /* =========================================================================
-       2. AUTH & LOW-BANDWIDTH DATABASE SYNC (QUOTA SAVER)
+       4. AUTHENTICATION & OPTIMIZED REALTIME DATA BINDING
        ========================================================================= */
     auth.onAuthStateChanged((user) => {
       if (user) {
         currentUser = user;
+        if (userDbRef) userDbRef.off();
         userDbRef = db.ref('users/' + user.uid);
 
-        // QUOTA OPTIMIZATION: Sirf profile fields sync hongi, heavy arrays nahi!
         userDbRef.on('value', (snapshot) => {
           const data = snapshot.val();
           if (data) {
@@ -1095,22 +1062,9 @@
               commissionEarned: Number(data.commissionEarned) || 0
             };
 
-            // Plans, withdrawals aur referrals ko snapshot se alag bind karein bina duplicate reads ke
-            if (data.plans) {
-              appState.plans = Object.entries(data.plans).map(([k, v]) => ({ _fbKey: k, ...v })).reverse();
-            } else {
-              appState.plans = [];
-            }
-            if (data.withdrawals) {
-              appState.withdrawals = Object.entries(data.withdrawals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse();
-            } else {
-              appState.withdrawals = [];
-            }
-            if (data.referrals) {
-              appState.referrals = Object.entries(data.referrals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse();
-            } else {
-              appState.referrals = [];
-            }
+            appState.plans = data.plans ? Object.entries(data.plans).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
+            appState.withdrawals = data.withdrawals ? Object.entries(data.withdrawals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
+            appState.referrals = data.referrals ? Object.entries(data.referrals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
 
             updateUI();
 
@@ -1120,10 +1074,11 @@
           } else {
             createNewUserRecord(user);
           }
+        }, (err) => {
+          showToast("error", "Database sync error: " + err.message);
         });
 
         renderPlansCatalog();
-        updateWithdrawHoursLabel();
         updateWithdrawWindowUI();
         updatePaymentAccountUI();
         startLiveIntervals();
@@ -1134,7 +1089,7 @@
         }
         currentUser = null;
         resetState();
-        
+
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('ref')) {
           navigateTo('register');
@@ -1146,7 +1101,7 @@
 
     function resetState() {
       appState = {
-        user: { uid: null, username: "", email: "", referralCode: "", referredBy: null, balance: 0, lifetimeEarned: 0, todayEarning: 0, networkSize: 0, commissionEarned: 0, activeSessionId: null },
+        user: { uid: null, username: "", email: "", referralCode: "", referredBy: null, balance: 0, lifetimeEarned: 0, todayEarning: 0, networkSize: 0, commissionEarned: 0 },
         plans: [],
         withdrawals: [],
         referrals: []
@@ -1155,22 +1110,6 @@
       withdrawVisibleCount = 8;
       if (countdownTimerId) clearInterval(countdownTimerId);
       updateUI();
-    }
-
-    function formatHourLabel(h) {
-      const period = h >= 12 ? 'PM' : 'AM';
-      let hour12 = h % 12;
-      if (hour12 === 0) hour12 = 12;
-      return `${String(hour12).padStart(2, '0')}:00 ${period}`;
-    }
-
-    function updateWithdrawHoursLabel() {
-      const label = `${formatHourLabel(dynamicWithdrawTiming.openHour)} – ${formatHourLabel(dynamicWithdrawTiming.closeHour)}`;
-      const el1 = document.getElementById("withdraw-hours-label");
-      const el2 = document.getElementById("form-withdraw-hours");
-      if (el1) el1.innerHTML = `<i data-lucide="clock" class="w-3 h-3"></i> ${label}`;
-      if (el2) el2.innerText = label;
-      lucide.createIcons();
     }
 
     function updatePaymentAccountUI() {
@@ -1184,7 +1123,7 @@
     }
 
     /* =========================================================================
-       3. UNIQUE REFERRAL CODE & SHALLOW UPLINE FETCH (QUOTA SAVER)
+       5. REFERRAL CODE & RECORD GENERATION
        ========================================================================= */
     async function generateUniqueReferralCode() {
       const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -1206,16 +1145,16 @@
     }
 
     async function createNewUserRecord(user, customUsername = null, referralProvided = null) {
-      const username = customUsername || user.displayName || user.email.split('@')[0];
+      const username = (customUsername || user.displayName || user.email.split('@')[0]).trim();
       const uniqueRefCode = await generateUniqueReferralCode();
 
       let upline1 = null, upline2 = null, upline3 = null;
 
       if (referralProvided) {
-        const codeSnap = await db.ref('referral_codes/' + referralProvided.toUpperCase()).once('value');
+        const cleanRef = referralProvided.trim().toUpperCase();
+        const codeSnap = await db.ref('referral_codes/' + cleanRef).once('value');
         if (codeSnap.exists()) {
           upline1 = codeSnap.val();
-          // QUOTA FIX: Sirf 2-word lightweight path se upline lete hain, user data bilkul download nahi hota
           const upSnap = await db.ref('referral_uplines/' + upline1).once('value');
           const upData = upSnap.val();
           if (upData) {
@@ -1229,17 +1168,12 @@
       const updates = {};
 
       updates[`referral_codes/${uniqueRefCode}`] = user.uid;
-      // Lightweight pointer node
-      updates[`referral_uplines/${user.uid}`] = {
-        up1: upline1,
-        up2: upline2,
-        up3: upline3
-      };
+      updates[`referral_uplines/${user.uid}`] = { up1: upline1, up2: upline2, up3: upline3 };
       updates[`users/${user.uid}`] = {
         username: username,
         email: user.email,
         referralCode: uniqueRefCode,
-        referredBy: referralProvided || null,
+        referredBy: referralProvided ? referralProvided.trim().toUpperCase() : null,
         upline1: upline1,
         upline2: upline2,
         upline3: upline3,
@@ -1271,7 +1205,7 @@
     }
 
     /* =========================================================================
-       4. NAVIGATION ROUTER
+       6. VIEW NAVIGATION ROUTER
        ========================================================================= */
     function navigateTo(viewId) {
       currentView = viewId;
@@ -1303,14 +1237,8 @@
     }
 
     /* =========================================================================
-       5. WITHDRAW WINDOW & PLAN ELIGIBILITY CHECK
+       7. WITHDRAW LOGIC & ACCURATE WINDOW VALIDATION
        ========================================================================= */
-    function isWithdrawOpen() {
-      const pkt = getPKTDate();
-      const hours = pkt.getHours();
-      return hours >= dynamicWithdrawTiming.openHour && hours < dynamicWithdrawTiming.closeHour;
-    }
-
     function hasActivePlan() {
       return appState.plans.some(p => p.status === 'active');
     }
@@ -1319,7 +1247,15 @@
       const isOpen = isWithdrawOpen();
       const badge = document.getElementById("withdraw-time-badge");
       const caption = document.getElementById("withdraw-status-caption");
+      const planBadge = document.getElementById("plan-requirement-badge");
       const methodButtons = document.querySelectorAll(".method-btn");
+      const hasPlan = hasActivePlan();
+
+      if (planBadge) {
+        planBadge.innerHTML = hasPlan 
+          ? `<span class="text-[#c3e9d4] font-semibold"><i data-lucide="check" class="w-3.5 h-3.5 inline mr-1"></i>Active Plan Verified</span>`
+          : `<span class="text-[#ffccd0] font-semibold"><i data-lucide="alert-circle" class="w-3.5 h-3.5 inline mr-1"></i>Active Plan Required</span>`;
+      }
 
       if (isOpen) {
         if (badge) {
@@ -1327,7 +1263,7 @@
           badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#12201a] animate-pulse"></span> Open now`;
         }
         if (caption) {
-          caption.innerText = "WINDOW ACTIVE";
+          caption.innerText = "WINDOW ACTIVE (09:00 AM – 10:00 PM)";
           caption.className = "text-[11px] font-bold text-[#008047] uppercase tracking-wider";
         }
         methodButtons.forEach(btn => btn.classList.remove("method-disabled"));
@@ -1337,7 +1273,7 @@
           badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#b3261e]"></span> Closed`;
         }
         if (caption) {
-          caption.innerText = `OPENS AT ${formatHourLabel(dynamicWithdrawTiming.openHour)}`;
+          caption.innerText = "OPENS AT 09:00 AM PKT";
           caption.className = "text-[11px] font-bold text-[#b3261e] uppercase tracking-wider";
         }
         methodButtons.forEach(btn => btn.classList.add("method-disabled"));
@@ -1346,7 +1282,7 @@
 
     function handleMethodClick(methodName) {
       if (!isWithdrawOpen()) {
-        showToast("error", `Withdrawals are closed. Active hours: ${formatHourLabel(dynamicWithdrawTiming.openHour)} to ${formatHourLabel(dynamicWithdrawTiming.closeHour)}.`);
+        showToast("error", "Withdrawals are closed right now. Operating hours: 09:00 AM to 10:00 PM PKT.");
         return;
       }
 
@@ -1355,11 +1291,16 @@
         return;
       }
 
+      if (appState.user.balance < 20) {
+        showToast("error", "Your balance is less than minimum withdrawal amount (Rs 20).");
+        return;
+      }
+
       openWithdrawForm(methodName);
     }
 
     /* =========================================================================
-       6. UI STATE UPDATE
+       8. UI STATE BINDING
        ========================================================================= */
     function updateUI() {
       const u = appState.user;
@@ -1410,7 +1351,7 @@
     }
 
     /* =========================================================================
-       7. RENDER 10 FIXED PLANS (0 DATABASE READS)
+       9. FIXED PLANS RENDERING
        ========================================================================= */
     function renderPlansCatalog() {
       const container = document.getElementById("plans-catalog-container");
@@ -1455,7 +1396,7 @@
     }
 
     /* =========================================================================
-       8. TASK CLAIM WITH ATOMIC DB VERIFICATION & MULTI-TAP SHIELD
+       10. ANTI-TAMPER CLAIM ENGINE
        ========================================================================= */
     function renderMyPlans() {
       const activeContainer = document.getElementById("active-plans-container");
@@ -1494,7 +1435,7 @@
               </div>
               <div>
                 <h4 class="text-[13px] font-bold text-[#12201a]">${escapeHtml(plan.planName)}</h4>
-                <p class="text-[11px] text-[#5f6f68] mt-0.5">Rs ${Number(plan.dailyIncome).toLocaleString('en-US')} daily · ${plan.daysLeft} days left</p>
+                <p class="text-[11px] text-[#5f6f68] mt-0.5">Rs ${Number(plan.dailyIncome).toLocaleString('en-US')} daily · ${plan.daysLeft || 0} days left</p>
               </div>
             </div>
 
@@ -1518,10 +1459,10 @@
     }
 
     function getTimeUntilMidnightPKT() {
-      const pkt = getPKTDate();
-      const hoursLeft = 23 - pkt.getHours();
-      const minutesLeft = 59 - pkt.getMinutes();
-      const secondsLeft = 59 - pkt.getSeconds();
+      const p = getPKTTimeParts();
+      const hoursLeft = Math.max(0, 23 - p.hours);
+      const minutesLeft = Math.max(0, 59 - p.minutes);
+      const secondsLeft = Math.max(0, 59 - p.seconds);
       return `${String(hoursLeft).padStart(2, '0')}h ${String(minutesLeft).padStart(2, '0')}m ${String(secondsLeft).padStart(2, '0')}s`;
     }
 
@@ -1536,7 +1477,6 @@
           timerDisplays.forEach(el => el.innerText = remaining);
         }
 
-        // Automatic clean midnight claim unlock without database strain
         const currentPktDay = getPKTDateString();
         if (currentPktDay !== lastResetDateStr) {
           lastResetDateStr = currentPktDay;
@@ -1547,7 +1487,6 @@
       }, 1000);
     }
 
-    // Anti-Tamper & Multi-Tap Claim
     async function handleClaimIncome(planKey, btn) {
       if (!currentUser || isClaiming) return;
 
@@ -1559,7 +1498,7 @@
 
       const todayPKT = getPKTDateString();
       if (targetPlan.lastClaimDatePKT === todayPKT) {
-        showToast("error", "Already claimed today. Next claim at 12:00 AM.");
+        showToast("error", "Already claimed today. Next claim available after midnight.");
         return;
       }
 
@@ -1571,38 +1510,45 @@
         const userData = userSnap.val();
         if (!userData) throw new Error("User record not found");
 
-        const realBalance = Number(userData.balance) || 0;
-        const realLifetime = Number(userData.lifetimeEarned) || 0;
-        const realToday = Number(userData.todayEarning) || 0;
-        const income = Number(targetPlan.dailyIncome) || 27;
-        const newDaysLeft = Math.max(0, (targetPlan.daysLeft || targetPlan.totalDays) - 1);
-        const nowServerTime = getSyncedNow();
         const fbKey = targetPlan._fbKey || planKey;
-
         const serverPlan = userData.plans ? userData.plans[fbKey] : null;
-        const lastClaimTs = (serverPlan && serverPlan.lastClaimTimestamp) ? Number(serverPlan.lastClaimTimestamp) : 0;
-        
-        // Anti-Cheat: Agar phone ki date aage ki ho tab bhi actual server time check hoga
-        if (serverPlan && (serverPlan.lastClaimDatePKT === todayPKT || (lastClaimTs > 0 && (nowServerTime - lastClaimTs) < 82800000))) {
-          showToast("error", "Task already claimed today. Next claim available after reset.");
+        if (!serverPlan || serverPlan.status !== 'active') {
+          throw new Error("Plan is not currently active.");
+        }
+
+        if (serverPlan.lastClaimDatePKT === todayPKT) {
+          showToast("error", "Task already claimed today. Next reset at 12:00 AM.");
           isClaiming = false;
           setButtonLoading(btn, false);
           return;
         }
 
+        // Verify Daily Income against authentic fixed plans
+        const matchingFixed = FIXED_PLANS.find(p => p.price === Number(serverPlan.price));
+        const income = matchingFixed ? matchingFixed.dailyIncome : (Number(serverPlan.dailyIncome) || 27);
+        const newDaysLeft = Math.max(0, (Number(serverPlan.daysLeft) || Number(serverPlan.totalDays) || 60) - 1);
+
+        const realBalance = Number(userData.balance) || 0;
+        const realLifetime = Number(userData.lifetimeEarned) || 0;
+        const realToday = (serverPlan.lastClaimDatePKT === todayPKT) ? (Number(userData.todayEarning) || 0) : ((Number(userData.todayEarning) || 0) + income);
+
         const updates = {};
         updates[`users/${currentUser.uid}/balance`] = realBalance + income;
         updates[`users/${currentUser.uid}/lifetimeEarned`] = realLifetime + income;
-        updates[`users/${currentUser.uid}/todayEarning`] = realToday + income;
+        updates[`users/${currentUser.uid}/todayEarning`] = realToday;
         updates[`users/${currentUser.uid}/plans/${fbKey}/lastClaimDatePKT`] = todayPKT;
         updates[`users/${currentUser.uid}/plans/${fbKey}/lastClaimTimestamp`] = firebase.database.ServerValue.TIMESTAMP;
         updates[`users/${currentUser.uid}/plans/${fbKey}/daysLeft`] = newDaysLeft;
 
+        if (newDaysLeft <= 0) {
+          updates[`users/${currentUser.uid}/plans/${fbKey}/status`] = "completed";
+        }
+
         await db.ref().update(updates);
-        showToast("success", `Rs ${income} daily income successfully added!`);
+        showToast("success", `Rs ${income} daily income claimed!`);
         renderMyPlans();
       } catch (err) {
-        showToast("error", err.message);
+        showToast("error", err.message || "Failed to claim income.");
       } finally {
         isClaiming = false;
         setButtonLoading(btn, false);
@@ -1610,7 +1556,7 @@
     }
 
     /* =========================================================================
-       9. PAYMENT & TID SUBMISSION (DUPLICATE TID CHECK + ANTI-SPAM)
+       11. DEPOSIT SUBMISSION (DUPLICATE TID & VALIDATION)
        ========================================================================= */
     let pendingPlanDetails = { price: 270, name: "Plan 01", daily: 27, days: 60, total: 1620 };
 
@@ -1636,8 +1582,13 @@
       const senderNumber = document.getElementById("pay-sender-account").value.trim();
       const submitBtn = document.getElementById("btn-submit-payment");
 
-      if (!sanitizedTid || sanitizedTid.length < 6 || senderNumber.length !== 11) {
-        showToast("error", "Please provide a valid TID (min 6 characters) and 11-digit mobile number.");
+      if (!sanitizedTid || sanitizedTid.length < 6) {
+        showToast("error", "Transaction ID (TID) must be at least 6 characters.");
+        return;
+      }
+
+      if (!/^03\d{9}$/.test(senderNumber)) {
+        showToast("error", "Please provide a valid 11-digit mobile number starting with 03 (e.g. 03001234567).");
         return;
       }
 
@@ -1647,7 +1598,7 @@
       try {
         const tidCheckSnap = await db.ref('used_tids/' + sanitizedTid).once('value');
         if (tidCheckSnap.exists()) {
-          showToast("error", "This Transaction ID (TID) has already been submitted!");
+          showToast("error", "This TID has already been submitted!");
           setButtonLoading(submitBtn, false);
           isSubmittingDeposit = false;
           return;
@@ -1691,7 +1642,7 @@
         showToast("info", "Plan deposit request submitted for admin approval.");
         navigateTo("deposit-history");
       } catch (err) {
-        showToast("error", err.message);
+        showToast("error", err.message || "Failed to submit deposit request.");
       } finally {
         setButtonLoading(submitBtn, false);
         isSubmittingDeposit = false;
@@ -1699,7 +1650,7 @@
     }
 
     /* =========================================================================
-       10. WITHDRAWAL SUBMISSION
+       12. ATOMIC TRANSACTIONAL WITHDRAWAL SUBMISSION
        ========================================================================= */
     let selectedWithdrawMethod = "Easypaisa";
 
@@ -1713,7 +1664,7 @@
 
     function setWithdrawAmount(val) {
       const input = document.getElementById("withdraw-amount-input");
-      input.value = val === 'all' ? appState.user.balance : val;
+      input.value = val === 'all' ? Math.floor(appState.user.balance) : val;
     }
 
     async function handleWithdrawSubmit(e, form) {
@@ -1721,7 +1672,7 @@
       if (!currentUser || isSubmittingWithdraw) return;
 
       if (!isWithdrawOpen()) {
-        showToast("error", `Withdrawals are closed. Operating hours are ${formatHourLabel(dynamicWithdrawTiming.openHour)} to ${formatHourLabel(dynamicWithdrawTiming.closeHour)}.`);
+        showToast("error", "Withdrawals are closed. Operating hours are 09:00 AM to 10:00 PM PKT.");
         return;
       }
 
@@ -1730,21 +1681,21 @@
         return;
       }
 
-      const amount = Number(document.getElementById("withdraw-amount-input").value);
+      const amount = Math.floor(Number(document.getElementById("withdraw-amount-input").value));
       const accName = document.getElementById("withdraw-account-name").value.trim();
       const accNum = document.getElementById("withdraw-account-num").value.trim();
       const submitBtn = document.getElementById("btn-request-withdraw");
 
       if (isNaN(amount) || amount < 20) {
-        showToast("error", "Minimum withdrawal amount is Rs 20");
+        showToast("error", "Minimum withdrawal amount is Rs 20.");
         return;
       }
-      if (!/^[a-zA-Z\s]+$/.test(accName)) {
-        showToast("error", "Account holder name must only contain letters");
+      if (!/^[a-zA-Z\s]{3,40}$/.test(accName)) {
+        showToast("error", "Account holder name must contain only letters (min 3 letters).");
         return;
       }
-      if (!/^\d{11}$/.test(accNum)) {
-        showToast("error", "Account number must be exactly 11 digits");
+      if (!/^03\d{9}$/.test(accNum)) {
+        showToast("error", "Account number must be 11 digits starting with 03 (e.g. 03211234567).");
         return;
       }
 
@@ -1752,17 +1703,24 @@
       setButtonLoading(submitBtn, true, "Verifying Balance…");
 
       try {
-        const userSnap = await db.ref('users/' + currentUser.uid + '/balance').once('value');
-        const currentLiveBalance = Number(userSnap.val()) || 0;
+        // ATOMIC BALANCE TRANSACTION (Double Spending & Race Condition Proof)
+        const balanceRef = db.ref('users/' + currentUser.uid + '/balance');
+        const txResult = await balanceRef.transaction((currentBal) => {
+          const val = Number(currentBal) || 0;
+          if (val < amount) {
+            return; // Abort transaction if insufficient funds
+          }
+          return val - amount;
+        });
 
-        if (amount > currentLiveBalance) {
-          showToast("error", "Insufficient server balance for this payout request");
+        if (!txResult.committed) {
+          showToast("error", "Insufficient server balance for this withdrawal.");
           setButtonLoading(submitBtn, false);
           isSubmittingWithdraw = false;
           return;
         }
 
-        setButtonLoading(submitBtn, true, "Submitting…");
+        setButtonLoading(submitBtn, true, "Submitting Request…");
 
         const userWithdrawKey = db.ref('users/' + currentUser.uid + '/withdrawals').push().key;
         const adminPayoutKey = db.ref('admin_payout_requests').push().key;
@@ -1779,7 +1737,6 @@
         };
 
         const updates = {};
-        updates[`users/${currentUser.uid}/balance`] = currentLiveBalance - amount;
         updates[`users/${currentUser.uid}/withdrawals/${userWithdrawKey}`] = newWithdrawRecord;
         updates[`admin_payout_requests/${adminPayoutKey}`] = {
           userId: currentUser.uid,
@@ -1789,10 +1746,10 @@
 
         await db.ref().update(updates);
         form.reset();
-        showToast("success", "Withdrawal request submitted successfully.");
+        showToast("success", `Withdrawal request for Rs ${amount.toLocaleString('en-US')} submitted!`);
         navigateTo("withdraw-history");
       } catch (err) {
-        showToast("error", err.message);
+        showToast("error", err.message || "Failed to process withdrawal.");
       } finally {
         setButtonLoading(submitBtn, false);
         isSubmittingWithdraw = false;
@@ -1800,7 +1757,7 @@
     }
 
     /* =========================================================================
-       11. REFERRAL LEVELS SWITCHER
+       13. REFERRAL SYSTEM
        ========================================================================= */
     function selectReferralLevel(levelNum) {
       selectedReferralLevel = levelNum;
@@ -1850,15 +1807,15 @@
         <div class="flex items-center justify-between py-2.5 border-b border-[#dcebe2]/50 last:border-none">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-[#ecf8f1] text-[#008047] font-bold text-xs flex items-center justify-center">
-              ${m.username.charAt(0).toUpperCase()}
+              ${(m.username || 'U').charAt(0).toUpperCase()}
             </div>
             <div>
               <h5 class="text-[13px] font-bold text-[#12201a]">${escapeHtml(m.username)}</h5>
-              <p class="text-[10px] text-[#5f6f68]">Joined: ${m.joinedDate}</p>
+              <p class="text-[10px] text-[#5f6f68]">Joined: ${escapeHtml(m.joinedDate)}</p>
             </div>
           </div>
           <div class="text-right">
-            <span class="text-[12px] font-bold text-[#008047]">Rs ${(m.earned || 0).toLocaleString('en-US')}</span>
+            <span class="text-[12px] font-bold text-[#008047]">Rs ${(Number(m.earned) || 0).toLocaleString('en-US')}</span>
             <span class="block text-[9px] text-[#5f6f68]">Commission</span>
           </div>
         </div>
@@ -1866,7 +1823,7 @@
     }
 
     /* =========================================================================
-       12. DEPOSIT & WITHDRAW HISTORY PAGINATION (8 Records + "See More")
+       14. DEPOSIT & WITHDRAW HISTORY PAGINATION
        ========================================================================= */
     function loadMoreDepositHistory() {
       depositVisibleCount += 8;
@@ -1896,7 +1853,7 @@
               <span class="text-[13px] font-extrabold text-[#008047]">Rs ${Number(p.price).toLocaleString('en-US')}</span>
             </div>
             <p class="text-[11px] text-[#5f6f68] mt-0.5">TID: ${escapeHtml(p.tid)}</p>
-            <p class="text-[11px] text-[#5f6f68]">Sender: ${p.senderNumber || 'N/A'} · ${p.dateText}</p>
+            <p class="text-[11px] text-[#5f6f68]">Sender: ${escapeHtml(p.senderNumber || 'N/A')} · ${escapeHtml(p.dateText)}</p>
           </div>
           <div>
             <span class="inline-flex items-center gap-1 ${p.status === 'active' ? 'bg-[#ecf8f1] text-[#0d7a4a] ring-1 ring-[#c3e9d4]' : 'bg-[#fff8e8] text-[#a15c07] ring-1 ring-[#f6e0b0]'} rounded-full font-semibold px-2.5 py-1 text-[11px]">
@@ -1906,7 +1863,6 @@
         </div>
       `).join('');
 
-      // Render "See More" Button if more records exist
       if (paginationContainer) {
         if (totalPlans > depositVisibleCount) {
           const remaining = totalPlans - depositVisibleCount;
@@ -1950,18 +1906,17 @@
               <span class="text-[13px] font-bold text-[#12201a]">${escapeHtml(w.method)}</span>
               <span class="text-[13px] font-extrabold text-[#008047]">Rs ${Number(w.amount).toLocaleString('en-US')}</span>
             </div>
-            <p class="text-[11px] text-[#5f6f68] mt-0.5">${w.dateText}</p>
+            <p class="text-[11px] text-[#5f6f68] mt-0.5">${escapeHtml(w.dateText)}</p>
             <p class="text-[11px] text-[#5f6f68]">Account: ${escapeHtml(w.accountNumber)}</p>
           </div>
           <div>
             <span class="inline-flex items-center gap-1 ${w.status === 'approved' ? 'bg-[#ecf8f1] text-[#0d7a4a] ring-1 ring-[#c3e9d4]' : w.status === 'rejected' ? 'bg-[#fdf0f0] text-[#b3261e] ring-1 ring-[#f4cccc]' : 'bg-[#fff8e8] text-[#a15c07] ring-1 ring-[#f6e0b0]'} rounded-full font-semibold px-2.5 py-1 text-[11px]">
-              <i data-lucide="${w.status === 'approved' ? 'check-circle-2' : w.status === 'rejected' ? 'x-circle' : 'clock-3'}" class="w-3 h-3"></i> ${w.status.charAt(0).toUpperCase() + w.status.slice(1)}
+              <i data-lucide="${w.status === 'approved' ? 'check-circle-2' : w.status === 'rejected' ? 'x-circle' : 'clock-3'}" class="w-3 h-3"></i> ${w.status ? (w.status.charAt(0).toUpperCase() + w.status.slice(1)) : 'Pending'}
             </span>
           </div>
         </div>
       `).join('');
 
-      // Render "See More" Button if more records exist
       if (paginationContainer) {
         if (totalWithdrawals > withdrawVisibleCount) {
           const remaining = totalWithdrawals - withdrawVisibleCount;
@@ -1979,7 +1934,7 @@
     }
 
     /* =========================================================================
-       13. AUTH HANDLERS
+       15. AUTHENTICATION HANDLERS
        ========================================================================= */
     function handleEmailLogin(e, form) {
       e.preventDefault();
@@ -1994,7 +1949,7 @@
           showToast("success", "Welcome back to Khan Company!");
         })
         .catch((err) => {
-          showToast("error", err.message);
+          showToast("error", err.message || "Failed to sign in.");
         })
         .finally(() => {
           setButtonLoading(btn, false);
@@ -2011,7 +1966,7 @@
       const btn = document.getElementById("btn-register-submit");
 
       if (password !== confirmPassword) {
-        showToast("error", "Passwords do not match");
+        showToast("error", "Passwords do not match.");
         return;
       }
 
@@ -2025,7 +1980,7 @@
           showToast("success", "Khan Company account created successfully!");
         })
         .catch((err) => {
-          showToast("error", err.message);
+          showToast("error", err.message || "Failed to register.");
         })
         .finally(() => {
           setButtonLoading(btn, false);
@@ -2043,7 +1998,7 @@
     }
 
     /* =========================================================================
-       14. UTILITIES
+       16. UTILITIES & TOAST SYSTEM
        ========================================================================= */
     function copyText(text, successMsg = "Copied to clipboard") {
       if (!text) return;
@@ -2066,7 +2021,7 @@
         document.execCommand('copy');
         showToast("info", successMsg);
       } catch (err) {
-        showToast("error", "Failed to copy");
+        showToast("error", "Failed to copy text.");
       }
       document.body.removeChild(textArea);
     }
@@ -2090,7 +2045,7 @@
       }
 
       const toast = document.createElement("div");
-      toast.className = "toast-enter pointer-events-auto bg-white border border-[#dcebe2] rounded-xl p-[12px_14px] shadow-toast flex items-center gap-3 transition-all duration-180";
+      toast.className = "toast-enter pointer-events-auto bg-white border border-[#dcebe2] rounded-xl p-[12px_14px] shadow-toast flex items-center gap-3 transition-all duration-150";
 
       let iconMarkup = type === "success" 
         ? `<div class="w-[26px] h-[26px] rounded-full bg-[#ecf8f1] border border-[#c3e9d4] flex items-center justify-center shrink-0 text-[#0d7a4a]"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i></div>`
@@ -2100,7 +2055,7 @@
 
       toast.innerHTML = `${iconMarkup}<span class="text-[13px] font-semibold text-[#12201a] leading-tight break-words flex-1">${escapeHtml(message)}</span>`;
 
-      const duration = type === "error" ? 4500 : 3000;
+      const duration = type === "error" ? 4000 : 2800;
       setTimeout(() => dismissToast(toast), duration);
 
       toast.addEventListener("click", () => dismissToast(toast));
@@ -2117,7 +2072,7 @@
       element.classList.add("toast-exit");
       setTimeout(() => {
         if (element.parentNode) element.parentNode.removeChild(element);
-      }, 160);
+      }, 150);
     }
 
     function setButtonLoading(btn, isLoading, loadingText = "Saving…") {
@@ -2137,6 +2092,7 @@
     }
 
     function escapeHtml(str) {
+      if (!str) return "";
       return String(str).replace(/[&<>'"]/g, tag => ({
         '&': '&amp;',
         '<': '&lt;',
@@ -2146,7 +2102,7 @@
       }[tag] || tag));
     }
 
-    // 15. URL & Referral Handling on Page Load
+    // 17. INITIALIZATION ON DOM READY
     window.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
       renderPlansCatalog();
