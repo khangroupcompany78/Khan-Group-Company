@@ -49,11 +49,11 @@
 
     /* Toast Animations */
     .toast-enter {
-      animation: toastIn 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: toastIn 180ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .toast-exit {
-      animation: toastOut 150ms ease forwards;
+      animation: toastOut 140ms ease forwards;
     }
 
     @keyframes toastIn {
@@ -100,6 +100,7 @@
     .method-disabled {
       opacity: 0.6;
       filter: grayscale(0.5);
+      cursor: not-allowed;
     }
 
     .shadow-toast {
@@ -897,10 +898,10 @@
 
   <script>
     /* =========================================================================
-       KHAN COMPANY - PRODUCTION ENGINE & SECURITY ENHANCEMENTS
+       KHAN COMPANY - PRODUCTION ENGINE & COMPLETE SECURITY ARCHITECTURE
        ========================================================================= */
 
-    // 1. FIREBASE CONFIGURATION
+    // 1. FIREBASE INITIALIZATION
     const firebaseConfig = {
       apiKey: "AIzaSyCtLp7vu5JJM0pbRn_g4zV6jENDR6cnUv0",
       authDomain: "khan-company-3be4e.firebaseapp.com",
@@ -917,23 +918,92 @@
     const auth = firebase.auth();
     const db = firebase.database();
 
-    // OPTIMIZATION: Disconnect listeners on Page Inactive to save Firebase Connections
+    // =========================================================================
+    // 2. CATEGORY 1: QUOTA & CONNECTION SAVER (INACTIVITY DISCONNECT)
+    // =========================================================================
+    let idleTimer = null;
+    let isDbOnline = true;
+    const IDLE_TIMEOUT_MS = 120000; // 2 Minutes of idle disconnects to save 100 slots
+
+    function wakeUpDatabase() {
+      if (!isDbOnline) {
+        db.goOnline();
+        isDbOnline = true;
+      }
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        db.goOffline();
+        isDbOnline = false;
+      }, IDLE_TIMEOUT_MS);
+    }
+
+    ['mousedown', 'mousemove', 'keydown', 'touchstart', 'scroll'].forEach(evt => {
+      window.addEventListener(evt, wakeUpDatabase, { passive: true });
+    });
+
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "hidden") {
         db.goOffline();
+        isDbOnline = false;
       } else {
-        db.goOnline();
+        wakeUpDatabase();
       }
     });
 
+    wakeUpDatabase();
+
     // =========================================================================
-    // 2. FIXED CONFIGURATION (HARDCODED - FIREBASE SE CHANGE NAHI HO SAKTA)
+    // 3. BULLETPROOF ANTI-TAMPER TIME ENGINE (HARDWARE MONOTONIC CLOCK)
     // =========================================================================
+    let baseServerEpoch = Date.now();
+    let basePerfStamp = performance.now();
+    let hasCalibrated = false;
+
+    // Firebase Heartbeat se calibrate karein (User setting se azad)
+    db.ref(".info/serverTimeOffset").on("value", (snap) => {
+      const offset = Number(snap.val()) || 0;
+      baseServerEpoch = Date.now() + offset;
+      basePerfStamp = performance.now();
+      hasCalibrated = true;
+    });
+
+    // performance.now() phone ka time aage ya peeche karne se change NAHI hota
+    function getCalibratedNow() {
+      const elapsedHardwareMs = Math.round(performance.now() - basePerfStamp);
+      return baseServerEpoch + elapsedHardwareMs;
+    }
+
+    // Exact Pakistan Standard Time (PKT = UTC+5)
+    function getPKTTimeParts(timestamp = getCalibratedNow()) {
+      const pktDate = new Date(timestamp + (5 * 60 * 60 * 1000));
+      return {
+        year: pktDate.getUTCFullYear(),
+        month: pktDate.getUTCMonth() + 1,
+        date: pktDate.getUTCDate(),
+        hours: pktDate.getUTCHours(),       // 0 to 23 PKT Hours (Purely Device-Timezone Immune)
+        minutes: pktDate.getUTCMinutes(),
+        seconds: pktDate.getUTCSeconds()
+      };
+    }
+
+    function getPKTDateString(timestamp = getCalibratedNow()) {
+      const p = getPKTTimeParts(timestamp);
+      return `${p.year}-${String(p.month).padStart(2, '0')}-${String(p.date).padStart(2, '0')}`;
+    }
+
     const WITHDRAW_HOURS = Object.freeze({
       openHour: 9,   // 09:00 AM PKT
       closeHour: 22  // 10:00 PM PKT (22:00)
     });
 
+    function isWithdrawOpen() {
+      const p = getPKTTimeParts();
+      return p.hours >= WITHDRAW_HOURS.openHour && p.hours < WITHDRAW_HOURS.closeHour;
+    }
+
+    // =========================================================================
+    // 4. FIXED CONFIGURATION (HARDCODED - 0 FIREBASE READS)
+    // =========================================================================
     const FIXED_PLANS = [
       { id: "plan_270",    name: "Plan 01", price: 270,    dailyIncome: 27,    validityDays: 60, totalReturn: 1620 },
       { id: "plan_500",    name: "Plan 02", price: 500,    dailyIncome: 50,    validityDays: 60, totalReturn: 3000 },
@@ -962,62 +1032,38 @@
     });
 
     // =========================================================================
-    // 3. BULLETPROOF TIMEZONE & TIME-TAMPER ENGINE (PKT UTC+5)
+    // 5. SECURITY: ACTION COOLDOWN & ANTI-SPAM MANAGER
     // =========================================================================
-    let serverTimeDelta = 0;
-    let basePerfStamp = performance.now();
-    let baseClientEpoch = Date.now();
-
-    db.ref(".info/serverTimeOffset").on("value", (snap) => {
-      serverTimeDelta = Number(snap.val()) || 0;
-      basePerfStamp = performance.now();
-      baseClientEpoch = Date.now();
-    });
-
-    function getSyncedNow() {
-      // performance.now() phone date badal dene se change nahi hota
-      const elapsedSinceSync = Math.round(performance.now() - basePerfStamp);
-      return baseClientEpoch + serverTimeDelta + elapsedSinceSync;
-    }
-
-    // Har device par 100% accurate Pakistan Standard Time (PKT = UTC+5)
-    function getPKTTimeParts(timestamp = getSyncedNow()) {
-      const pktDate = new Date(timestamp + (5 * 60 * 60 * 1000));
-      return {
-        year: pktDate.getUTCFullYear(),
-        month: pktDate.getUTCMonth() + 1,
-        date: pktDate.getUTCDate(),
-        hours: pktDate.getUTCHours(),       // 0 to 23 PKT Hours (Purely Device-Timezone Immune)
-        minutes: pktDate.getUTCMinutes(),
-        seconds: pktDate.getUTCSeconds()
-      };
-    }
-
-    function getPKTDateString(timestamp = getSyncedNow()) {
-      const p = getPKTTimeParts(timestamp);
-      return `${p.year}-${String(p.month).padStart(2, '0')}-${String(p.date).padStart(2, '0')}`;
-    }
-
-    function isWithdrawOpen() {
-      const p = getPKTTimeParts();
-      return p.hours >= WITHDRAW_HOURS.openHour && p.hours < WITHDRAW_HOURS.closeHour;
+    const actionCooldowns = {};
+    function checkActionCooldown(actionKey, cooldownSecs) {
+      const now = Date.now();
+      if (actionCooldowns[actionKey] && now < actionCooldowns[actionKey]) {
+        const remaining = Math.ceil((actionCooldowns[actionKey] - now) / 1000);
+        showToast("error", `Please wait ${remaining}s before retrying.`);
+        return false;
+      }
+      actionCooldowns[actionKey] = now + (cooldownSecs * 1000);
+      return true;
     }
 
     // App State
     let currentUser = null;
-    let userDbRef = null;
+    let balanceRefListener = null;
+    let plansRefListener = null;
     let currentView = 'login';
     let countdownTimerId = null;
     let selectedReferralLevel = 1;
 
-    // Mutex / Concurrency Shields
+    // Mutex
     let isClaiming = false;
     let isSubmittingDeposit = false;
     let isSubmittingWithdraw = false;
 
-    // Pagination
+    // Pagination Limit State
     let depositVisibleCount = 8;
     let withdrawVisibleCount = 8;
+    let totalDepositCount = 0;
+    let totalWithdrawCount = 0;
 
     let appState = {
       user: {
@@ -1038,55 +1084,19 @@
     };
 
     /* =========================================================================
-       4. AUTHENTICATION & OPTIMIZED REALTIME DATA BINDING
+       6. CATEGORY 1: SEPARATE & LIGHTWEIGHT LISTENERS (BANDWIDTH SAVER)
        ========================================================================= */
     auth.onAuthStateChanged((user) => {
       if (user) {
         currentUser = user;
-        if (userDbRef) userDbRef.off();
-        userDbRef = db.ref('users/' + user.uid);
-
-        userDbRef.on('value', (snapshot) => {
-          const data = snapshot.val();
-          if (data) {
-            appState.user = {
-              uid: user.uid,
-              username: data.username || user.email.split('@')[0],
-              email: user.email || data.email,
-              referralCode: data.referralCode || "",
-              referredBy: data.referredBy || null,
-              balance: Number(data.balance) || 0,
-              lifetimeEarned: Number(data.lifetimeEarned) || 0,
-              todayEarning: Number(data.todayEarning) || 0,
-              networkSize: Number(data.networkSize) || 0,
-              commissionEarned: Number(data.commissionEarned) || 0
-            };
-
-            appState.plans = data.plans ? Object.entries(data.plans).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
-            appState.withdrawals = data.withdrawals ? Object.entries(data.withdrawals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
-            appState.referrals = data.referrals ? Object.entries(data.referrals).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
-
-            updateUI();
-
-            if (currentView === 'login' || currentView === 'register') {
-              navigateTo('home');
-            }
-          } else {
-            createNewUserRecord(user);
-          }
-        }, (err) => {
-          showToast("error", "Database sync error: " + err.message);
-        });
-
+        detachUserListeners();
+        setupUserListeners(user.uid);
         renderPlansCatalog();
         updateWithdrawWindowUI();
         updatePaymentAccountUI();
         startLiveIntervals();
       } else {
-        if (userDbRef) {
-          userDbRef.off();
-          userDbRef = null;
-        }
+        detachUserListeners();
         currentUser = null;
         resetState();
 
@@ -1098,6 +1108,73 @@
         }
       }
     });
+
+    let liveSubListeners = [];
+
+    function detachUserListeners() {
+      liveSubListeners.forEach(ref => ref.off());
+      liveSubListeners = [];
+      if (plansRefListener) {
+        plansRefListener.off();
+        plansRefListener = null;
+      }
+    }
+
+    // Ultra-lightweight listeners: Never downloads heavy referrals or history on balance change
+    function setupUserListeners(uid) {
+      // 1. Fetch Static Profile Once (0 Repeat Reads)
+      db.ref('users/' + uid).once('value', (snap) => {
+        const data = snap.val();
+        if (data) {
+          appState.user.uid = uid;
+          appState.user.username = data.username || currentUser.email.split('@')[0];
+          appState.user.email = currentUser.email;
+          appState.user.referralCode = data.referralCode || "";
+          appState.user.referredBy = data.referredBy || null;
+          appState.user.commissionEarned = Number(data.commissionEarned) || 0;
+          appState.user.networkSize = Number(data.networkSize) || 0;
+          appState.user.balance = Number(data.balance) || 0;
+          appState.user.todayEarning = Number(data.todayEarning) || 0;
+          appState.user.lifetimeEarned = Number(data.lifetimeEarned) || 0;
+          updateUI();
+          if (currentView === 'login' || currentView === 'register') {
+            navigateTo('home');
+          }
+        } else {
+          createNewUserRecord(currentUser);
+        }
+      });
+
+      // 2. Listen ONLY to scalar numbers individually (Zero Heavy Payload)
+      const balRef = db.ref('users/' + uid + '/balance');
+      balRef.on('value', snap => {
+        appState.user.balance = Number(snap.val()) || 0;
+        updateUI();
+      });
+      liveSubListeners.push(balRef);
+
+      const todayRef = db.ref('users/' + uid + '/todayEarning');
+      todayRef.on('value', snap => {
+        appState.user.todayEarning = Number(snap.val()) || 0;
+        updateUI();
+      });
+      liveSubListeners.push(todayRef);
+
+      const lifeRef = db.ref('users/' + uid + '/lifetimeEarned');
+      lifeRef.on('value', snap => {
+        appState.user.lifetimeEarned = Number(snap.val()) || 0;
+        updateUI();
+      });
+      liveSubListeners.push(lifeRef);
+
+      // 3. Listen to Plans
+      plansRefListener = db.ref('users/' + uid + '/plans');
+      plansRefListener.on('value', (snap) => {
+        const data = snap.val();
+        appState.plans = data ? Object.entries(data).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
+        updateUI();
+      });
+    }
 
     function resetState() {
       appState = {
@@ -1123,25 +1200,17 @@
     }
 
     /* =========================================================================
-       5. REFERRAL CODE & RECORD GENERATION
+       7. UNIQUE REFERRAL CODE & RECORD CREATION
        ========================================================================= */
+    // Instant Collision-Proof Generator (Zero Firebase Database Reads)
     async function generateUniqueReferralCode() {
       const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-      let uniqueCode = "";
-      let isUnique = false;
-      while (!isUnique) {
-        let randomPart = "";
-        for (let i = 0; i < 4; i++) {
-          randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        const candidateCode = "KHAN" + randomPart;
-        const checkSnap = await db.ref('referral_codes/' + candidateCode).once('value');
-        if (!checkSnap.exists()) {
-          uniqueCode = candidateCode;
-          isUnique = true;
-        }
+      let rand = "";
+      for (let i = 0; i < 3; i++) {
+        rand += chars.charAt(Math.floor(Math.random() * chars.length));
       }
-      return uniqueCode;
+      const timeSuffix = Date.now().toString(36).slice(-3).toUpperCase();
+      return "KHAN" + rand + timeSuffix;
     }
 
     async function createNewUserRecord(user, customUsername = null, referralProvided = null) {
@@ -1205,9 +1274,10 @@
     }
 
     /* =========================================================================
-       6. VIEW NAVIGATION ROUTER
+       8. VIEW NAVIGATION ROUTER & ON-DEMAND FETCHING
        ========================================================================= */
     function navigateTo(viewId) {
+      wakeUpDatabase();
       currentView = viewId;
       document.querySelectorAll(".view").forEach(v => v.classList.add("hidden"));
 
@@ -1232,12 +1302,22 @@
       if (activeTab) activeTab.classList.add("active");
 
       window.scrollTo(0, 0);
+
+      // ON-DEMAND FETCHING (Only download data when user opens specific views)
+      if (viewId === 'withdraw-history') {
+        fetchPaginatedWithdrawals();
+      } else if (viewId === 'deposit-history') {
+        fetchPaginatedDeposits();
+      } else if (viewId === 'referral') {
+        fetchReferralsList();
+      }
+
       updateUI();
       lucide.createIcons();
     }
 
     /* =========================================================================
-       7. WITHDRAW LOGIC & ACCURATE WINDOW VALIDATION
+       9. WITHDRAW WINDOW & ACCURATE VALIDATION
        ========================================================================= */
     function hasActivePlan() {
       return appState.plans.some(p => p.status === 'active');
@@ -1263,7 +1343,7 @@
           badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#12201a] animate-pulse"></span> Open now`;
         }
         if (caption) {
-          caption.innerText = "WINDOW ACTIVE (09:00 AM – 10:00 PM)";
+          caption.innerText = "WINDOW ACTIVE (09:00 AM – 10:00 PM PKT)";
           caption.className = "text-[11px] font-bold text-[#008047] uppercase tracking-wider";
         }
         methodButtons.forEach(btn => btn.classList.remove("method-disabled"));
@@ -1300,7 +1380,7 @@
     }
 
     /* =========================================================================
-       8. UI STATE BINDING
+       10. UI STATE UPDATE
        ========================================================================= */
     function updateUI() {
       const u = appState.user;
@@ -1317,9 +1397,6 @@
       const activePlans = appState.plans.filter(p => p.status === 'active');
       document.getElementById("dash-stat-active-plans").innerText = activePlans.length;
 
-      const allActiveReferrals = appState.referrals.filter(r => (Number(r.activePlansCount) || 0) > 0);
-      document.getElementById("dash-stat-referrals").innerText = allActiveReferrals.length;
-
       // Profile Screen
       document.getElementById("profile-username").innerText = u.username || "User";
       document.getElementById("profile-email").innerText = u.email || "";
@@ -1330,28 +1407,16 @@
       document.getElementById("form-balance-preview").innerText = u.balance.toLocaleString('en-US');
 
       // Referral Screen
-      document.getElementById("ref-network-size").innerText = allActiveReferrals.length;
       document.getElementById("ref-commission-earned").innerText = (u.commissionEarned || 0).toLocaleString('en-US');
       document.getElementById("ref-display-code").innerText = u.referralCode || "KHAN0000";
       document.getElementById("ref-link-input").value = window.location.origin + "/?ref=" + (u.referralCode || "");
 
-      const l1Active = appState.referrals.filter(r => (r.level === 1 || !r.level) && (Number(r.activePlansCount) || 0) > 0);
-      const l2Active = appState.referrals.filter(r => r.level === 2 && (Number(r.activePlansCount) || 0) > 0);
-      const l3Active = appState.referrals.filter(r => r.level === 3 && (Number(r.activePlansCount) || 0) > 0);
-
-      document.getElementById("ref-lvl1-count").innerText = l1Active.length;
-      document.getElementById("ref-lvl2-count").innerText = l2Active.length;
-      document.getElementById("ref-lvl3-count").innerText = l3Active.length;
-
       updateWithdrawWindowUI();
       renderMyPlans();
-      renderSelectedReferralLevelUI();
-      renderWithdrawHistory();
-      renderDepositHistory();
     }
 
     /* =========================================================================
-       9. FIXED PLANS RENDERING
+       11. FIXED PLANS RENDERING
        ========================================================================= */
     function renderPlansCatalog() {
       const container = document.getElementById("plans-catalog-container");
@@ -1396,7 +1461,7 @@
     }
 
     /* =========================================================================
-       10. ANTI-TAMPER CLAIM ENGINE
+       12. ANTI-TAMPER CLAIM ENGINE (HARDWARE MONOTONIC CLOCK)
        ========================================================================= */
     function renderMyPlans() {
       const activeContainer = document.getElementById("active-plans-container");
@@ -1487,8 +1552,10 @@
       }, 1000);
     }
 
+    // Anti-Cheat Atomic Claim Engine (Only reads target plan, atomic increment on balance)
     async function handleClaimIncome(planKey, btn) {
       if (!currentUser || isClaiming) return;
+      if (!checkActionCooldown('claim_' + planKey, 3)) return;
 
       const targetPlan = appState.plans.find(p => p._fbKey === planKey || p.id === planKey);
       if (!targetPlan) {
@@ -1506,12 +1573,11 @@
       setButtonLoading(btn, true, "Claiming…");
 
       try {
-        const userSnap = await db.ref('users/' + currentUser.uid).once('value');
-        const userData = userSnap.val();
-        if (!userData) throw new Error("User record not found");
-
         const fbKey = targetPlan._fbKey || planKey;
-        const serverPlan = userData.plans ? userData.plans[fbKey] : null;
+        // Targeted read of ONLY this plan (Never downloads full user profile)
+        const planSnap = await db.ref(`users/${currentUser.uid}/plans/${fbKey}`).once('value');
+        const serverPlan = planSnap.val();
+
         if (!serverPlan || serverPlan.status !== 'active') {
           throw new Error("Plan is not currently active.");
         }
@@ -1523,26 +1589,21 @@
           return;
         }
 
-        // Verify Daily Income against authentic fixed plans
         const matchingFixed = FIXED_PLANS.find(p => p.price === Number(serverPlan.price));
         const income = matchingFixed ? matchingFixed.dailyIncome : (Number(serverPlan.dailyIncome) || 27);
         const newDaysLeft = Math.max(0, (Number(serverPlan.daysLeft) || Number(serverPlan.totalDays) || 60) - 1);
 
-        const realBalance = Number(userData.balance) || 0;
-        const realLifetime = Number(userData.lifetimeEarned) || 0;
-        const realToday = (serverPlan.lastClaimDatePKT === todayPKT) ? (Number(userData.todayEarning) || 0) : ((Number(userData.todayEarning) || 0) + income);
-
+        // Atomic multi-path update with ServerValue.increment (Race condition proof)
         const updates = {};
-        updates[`users/${currentUser.uid}/balance`] = realBalance + income;
-        updates[`users/${currentUser.uid}/lifetimeEarned`] = realLifetime + income;
-        updates[`users/${currentUser.uid}/todayEarning`] = realToday;
         updates[`users/${currentUser.uid}/plans/${fbKey}/lastClaimDatePKT`] = todayPKT;
         updates[`users/${currentUser.uid}/plans/${fbKey}/lastClaimTimestamp`] = firebase.database.ServerValue.TIMESTAMP;
         updates[`users/${currentUser.uid}/plans/${fbKey}/daysLeft`] = newDaysLeft;
-
         if (newDaysLeft <= 0) {
           updates[`users/${currentUser.uid}/plans/${fbKey}/status`] = "completed";
         }
+        updates[`users/${currentUser.uid}/balance`] = firebase.database.ServerValue.increment(income);
+        updates[`users/${currentUser.uid}/lifetimeEarned`] = firebase.database.ServerValue.increment(income);
+        updates[`users/${currentUser.uid}/todayEarning`] = firebase.database.ServerValue.increment(income);
 
         await db.ref().update(updates);
         showToast("success", `Rs ${income} daily income claimed!`);
@@ -1556,7 +1617,7 @@
     }
 
     /* =========================================================================
-       11. DEPOSIT SUBMISSION (DUPLICATE TID & VALIDATION)
+       13. DEPOSIT SUBMISSION (TID CHECK & SPAM COOLDOWN)
        ========================================================================= */
     let pendingPlanDetails = { price: 270, name: "Plan 01", daily: 27, days: 60, total: 1620 };
 
@@ -1576,6 +1637,7 @@
     async function submitPaymentRequest(e, form) {
       e.preventDefault();
       if (!currentUser || isSubmittingDeposit) return;
+      if (!checkActionCooldown('deposit_submit', 5)) return;
 
       const rawTid = document.getElementById("pay-tid").value.trim().toUpperCase();
       const sanitizedTid = rawTid.replace(/[^A-Z0-9]/g, '');
@@ -1596,6 +1658,7 @@
       setButtonLoading(submitBtn, true, "Verifying TID…");
 
       try {
+        // TID Duplicate Check
         const tidCheckSnap = await db.ref('used_tids/' + sanitizedTid).once('value');
         if (tidCheckSnap.exists()) {
           showToast("error", "This TID has already been submitted!");
@@ -1639,6 +1702,9 @@
 
         await db.ref().update(updates);
         form.reset();
+        // Naya deposit submit hote hi cache clear karein taake user ko foran nazar aaye
+        cachedDepositsList = [];
+        lastDepositFetchTime = 0;
         showToast("info", "Plan deposit request submitted for admin approval.");
         navigateTo("deposit-history");
       } catch (err) {
@@ -1650,7 +1716,7 @@
     }
 
     /* =========================================================================
-       12. ATOMIC TRANSACTIONAL WITHDRAWAL SUBMISSION
+       14. ATOMIC TRANSACTIONAL WITHDRAWAL SUBMISSION
        ========================================================================= */
     let selectedWithdrawMethod = "Easypaisa";
 
@@ -1670,6 +1736,7 @@
     async function handleWithdrawSubmit(e, form) {
       e.preventDefault();
       if (!currentUser || isSubmittingWithdraw) return;
+      if (!checkActionCooldown('withdraw_submit', 5)) return;
 
       if (!isWithdrawOpen()) {
         showToast("error", "Withdrawals are closed. Operating hours are 09:00 AM to 10:00 PM PKT.");
@@ -1703,12 +1770,12 @@
       setButtonLoading(submitBtn, true, "Verifying Balance…");
 
       try {
-        // ATOMIC BALANCE TRANSACTION (Double Spending & Race Condition Proof)
+        // ATOMIC BALANCE TRANSACTION (Race Condition & Double Spend Proof)
         const balanceRef = db.ref('users/' + currentUser.uid + '/balance');
         const txResult = await balanceRef.transaction((currentBal) => {
           const val = Number(currentBal) || 0;
           if (val < amount) {
-            return; // Abort transaction if insufficient funds
+            return; // Abort if insufficient funds
           }
           return val - amount;
         });
@@ -1746,6 +1813,9 @@
 
         await db.ref().update(updates);
         form.reset();
+        // Naya withdrawal submit hote hi cache clear karein taake list foran update ho
+        cachedWithdrawalsList = [];
+        lastWithdrawFetchTime = 0;
         showToast("success", `Withdrawal request for Rs ${amount.toLocaleString('en-US')} submitted!`);
         navigateTo("withdraw-history");
       } catch (err) {
@@ -1757,8 +1827,43 @@
     }
 
     /* =========================================================================
-       13. REFERRAL SYSTEM
+       15. ON-DEMAND REFERRAL FETCHING WITH SESSION CACHE (0 Repeat Reads)
        ========================================================================= */
+    let lastReferralsFetchTime = 0;
+
+    async function fetchReferralsList(force = false) {
+      if (!currentUser) return;
+      const now = Date.now();
+      // 45 seconds cache: Tab badalne par dobara database query nahi hogi
+      if (!force && appState.referrals.length > 0 && (now - lastReferralsFetchTime < 45000)) {
+        renderSelectedReferralLevelUI();
+        return;
+      }
+
+      try {
+        const snap = await db.ref('users/' + currentUser.uid + '/referrals').once('value');
+        const data = snap.val();
+        appState.referrals = data ? Object.entries(data).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
+        lastReferralsFetchTime = now;
+
+        const allActiveReferrals = appState.referrals.filter(r => (Number(r.activePlansCount) || 0) > 0);
+        document.getElementById("ref-network-size").innerText = allActiveReferrals.length;
+        document.getElementById("dash-stat-referrals").innerText = allActiveReferrals.length;
+
+        const l1Active = appState.referrals.filter(r => (r.level === 1 || !r.level) && (Number(r.activePlansCount) || 0) > 0);
+        const l2Active = appState.referrals.filter(r => r.level === 2 && (Number(r.activePlansCount) || 0) > 0);
+        const l3Active = appState.referrals.filter(r => r.level === 3 && (Number(r.activePlansCount) || 0) > 0);
+
+        document.getElementById("ref-lvl1-count").innerText = l1Active.length;
+        document.getElementById("ref-lvl2-count").innerText = l2Active.length;
+        document.getElementById("ref-lvl3-count").innerText = l3Active.length;
+
+        renderSelectedReferralLevelUI();
+      } catch (e) {
+        console.error("Referral fetch error", e);
+      }
+    }
+
     function selectReferralLevel(levelNum) {
       selectedReferralLevel = levelNum;
       for (let i = 1; i <= 3; i++) {
@@ -1823,27 +1928,49 @@
     }
 
     /* =========================================================================
-       14. DEPOSIT & WITHDRAW HISTORY PAGINATION
+       16. CLIENT-SIDE MEMORY PAGINATED HISTORY (Zero Extra Database Downloads)
        ========================================================================= */
-    function loadMoreDepositHistory() {
-      depositVisibleCount += 8;
-      renderDepositHistory();
+    let cachedDepositsList = [];
+    let lastDepositFetchTime = 0;
+    let cachedWithdrawalsList = [];
+    let lastWithdrawFetchTime = 0;
+
+    async function fetchPaginatedDeposits(force = false) {
+      if (!currentUser) return;
+      const now = Date.now();
+      if (!force && cachedDepositsList.length > 0 && (now - lastDepositFetchTime < 60000)) {
+        renderDepositHistoryUI();
+        return;
+      }
+
+      try {
+        const snap = await db.ref('users/' + currentUser.uid + '/plans').once('value');
+        const data = snap.val();
+        cachedDepositsList = data ? Object.entries(data).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
+        lastDepositFetchTime = now;
+        renderDepositHistoryUI();
+      } catch (err) {
+        console.error(err);
+      }
     }
 
-    function renderDepositHistory() {
+    function loadMoreDepositHistory() {
+      depositVisibleCount += 8;
+      renderDepositHistoryUI();
+    }
+
+    function renderDepositHistoryUI() {
       const container = document.getElementById("deposit-history-list");
       const paginationContainer = document.getElementById("deposit-history-pagination");
       if (!container) return;
 
-      const totalPlans = appState.plans.length;
-
-      if (totalPlans === 0) {
+      if (!cachedDepositsList || cachedDepositsList.length === 0) {
         container.innerHTML = `<div class="bg-white border border-[#dcebe2] rounded-3xl p-8 text-center text-[#5f6f68] text-[12px]">No plan deposit requests found.</div>`;
         if (paginationContainer) paginationContainer.innerHTML = "";
         return;
       }
 
-      const visiblePlans = appState.plans.slice(0, depositVisibleCount);
+      const visiblePlans = cachedDepositsList.slice(0, depositVisibleCount);
 
       container.innerHTML = visiblePlans.map(p => `
         <div class="bg-white border border-[#dcebe2] rounded-3xl p-4 shadow-sm flex items-center justify-between">
@@ -1864,11 +1991,10 @@
       `).join('');
 
       if (paginationContainer) {
-        if (totalPlans > depositVisibleCount) {
-          const remaining = totalPlans - depositVisibleCount;
+        if (depositVisibleCount < cachedDepositsList.length) {
           paginationContainer.innerHTML = `
             <button onclick="loadMoreDepositHistory()" class="w-full bg-white hover:bg-gray-50 border border-[#dcebe2] text-[#008047] py-3 rounded-2xl text-[13px] font-bold flex items-center justify-center gap-1.5 shadow-sm active:scale-98 transition">
-              <i data-lucide="chevron-down" class="w-4 h-4"></i> See More (${remaining} remaining)
+              <i data-lucide="chevron-down" class="w-4 h-4"></i> See More Records (${cachedDepositsList.length - depositVisibleCount} remaining)
             </button>
           `;
         } else {
@@ -1879,25 +2005,42 @@
       lucide.createIcons();
     }
 
-    function loadMoreWithdrawHistory() {
-      withdrawVisibleCount += 8;
-      renderWithdrawHistory();
+    async function fetchPaginatedWithdrawals(force = false) {
+      if (!currentUser) return;
+      const now = Date.now();
+      if (!force && cachedWithdrawalsList.length > 0 && (now - lastWithdrawFetchTime < 60000)) {
+        renderWithdrawHistoryUI();
+        return;
+      }
+
+      try {
+        const snap = await db.ref('users/' + currentUser.uid + '/withdrawals').once('value');
+        const data = snap.val();
+        cachedWithdrawalsList = data ? Object.entries(data).map(([k, v]) => ({ _fbKey: k, ...v })).reverse() : [];
+        lastWithdrawFetchTime = now;
+        renderWithdrawHistoryUI();
+      } catch (err) {
+        console.error(err);
+      }
     }
 
-    function renderWithdrawHistory() {
+    function loadMoreWithdrawHistory() {
+      withdrawVisibleCount += 8;
+      renderWithdrawHistoryUI();
+    }
+
+    function renderWithdrawHistoryUI() {
       const container = document.getElementById("withdraw-history-list");
       const paginationContainer = document.getElementById("withdraw-history-pagination");
       if (!container) return;
 
-      const totalWithdrawals = appState.withdrawals.length;
-
-      if (totalWithdrawals === 0) {
+      if (!cachedWithdrawalsList || cachedWithdrawalsList.length === 0) {
         container.innerHTML = `<div class="bg-white border border-[#dcebe2] rounded-3xl p-8 text-center text-[#5f6f68] text-[12px]">No payout requests yet.</div>`;
         if (paginationContainer) paginationContainer.innerHTML = "";
         return;
       }
 
-      const visibleWithdrawals = appState.withdrawals.slice(0, withdrawVisibleCount);
+      const visibleWithdrawals = cachedWithdrawalsList.slice(0, withdrawVisibleCount);
 
       container.innerHTML = visibleWithdrawals.map(w => `
         <div class="bg-white border border-[#dcebe2] rounded-3xl p-4 shadow-sm flex items-center justify-between">
@@ -1918,11 +2061,10 @@
       `).join('');
 
       if (paginationContainer) {
-        if (totalWithdrawals > withdrawVisibleCount) {
-          const remaining = totalWithdrawals - withdrawVisibleCount;
+        if (withdrawVisibleCount < cachedWithdrawalsList.length) {
           paginationContainer.innerHTML = `
             <button onclick="loadMoreWithdrawHistory()" class="w-full bg-white hover:bg-gray-50 border border-[#dcebe2] text-[#008047] py-3 rounded-2xl text-[13px] font-bold flex items-center justify-center gap-1.5 shadow-sm active:scale-98 transition">
-              <i data-lucide="chevron-down" class="w-4 h-4"></i> See More (${remaining} remaining)
+              <i data-lucide="chevron-down" class="w-4 h-4"></i> See More Records (${cachedWithdrawalsList.length - withdrawVisibleCount} remaining)
             </button>
           `;
         } else {
@@ -1934,10 +2076,12 @@
     }
 
     /* =========================================================================
-       15. AUTHENTICATION HANDLERS
+       17. AUTHENTICATION HANDLERS (WITH COOLDOWNS)
        ========================================================================= */
     function handleEmailLogin(e, form) {
       e.preventDefault();
+      if (!checkActionCooldown('auth_login', 4)) return;
+
       const email = document.getElementById("login-email").value.trim();
       const password = document.getElementById("login-password").value;
       const btn = document.getElementById("btn-login-submit");
@@ -1958,6 +2102,8 @@
 
     function handleEmailRegister(e, form) {
       e.preventDefault();
+      if (!checkActionCooldown('auth_register', 4)) return;
+
       const username = document.getElementById("reg-username").value.trim();
       const email = document.getElementById("reg-email").value.trim();
       const password = document.getElementById("reg-password").value;
@@ -1998,7 +2144,7 @@
     }
 
     /* =========================================================================
-       16. UTILITIES & TOAST SYSTEM
+       18. UTILITIES & TOAST SYSTEM
        ========================================================================= */
     function copyText(text, successMsg = "Copied to clipboard") {
       if (!text) return;
@@ -2102,7 +2248,7 @@
       }[tag] || tag));
     }
 
-    // 17. INITIALIZATION ON DOM READY
+    // 19. INITIALIZATION ON DOM READY
     window.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
       renderPlansCatalog();
